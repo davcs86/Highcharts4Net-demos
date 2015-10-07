@@ -210,7 +210,7 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Highcharts4Net\Highcharts4Net.csproj">
+    <ProjectReference Include="..\Highcharts4Net\Highcharts4Net\Highcharts4Net.csproj">
       <Project>{54ef87aa-e5c6-4cca-ab1d-116a78346b30}</Project>
       <Name>Highcharts4Net</Name>
     </ProjectReference>
