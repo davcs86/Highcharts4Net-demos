@@ -1,0 +1,185 @@
+﻿@using System.Drawing
+@using Highcharts4Net
+@using Highcharts4Net.Library.Enums
+@using Highcharts4Net.Library.Helpers
+@using Highcharts4Net.Library.Options
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "AreaChart with missing points";
+}
+
+@Html.Highcharts4Net().AreasplineChart(settings =>
+{
+    settings.SetTitle(s =>
+    {
+        s.Text = "Average fruit consumption during one week";
+    });
+
+    settings.SetLegend(s=>
+    {
+        s.Layout = Layouts.Vertical;
+        s.Align = HorizontalAligns.Left;
+        s.VerticalAlign = VerticalAligns.Top;
+        s.X = 150;
+        s.Y = 100;
+        s.Floating = true;
+        s.BorderWidth = 1;
+        s.BackgroundColor = new ColorOrGradient("(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'",false);
+    });
+
+    settings.AddXAxis(s=>
+    {
+        s.Categories = new[]
+        {
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+        };
+        s.PlotBands = new[]
+        {
+            new XAxisPlotBands
+            {
+                From = 4.5,
+                To = 6.5,
+                Color = new ColorOrGradient(Color.FromArgb(20, 68, 170, 213))
+            }
+        };
+    });
+    settings.AddYAxis(s=>
+    {
+        s.Title = new YAxisTitle
+        {
+            Text = "Fruit units"
+        };
+    });
+    settings.SetTooltip(s=>
+    {
+        s.Shared = true;
+        s.ValueSuffix = " units";
+    });
+
+    settings.SetCredits(s=>
+    {
+        s.Enabled = false;
+    });
+
+    settings.SetPlotOptions(s=>
+    {
+        s.Areaspline = new PlotOptionsAreaspline
+        {
+            FillOpacity = 0.5
+        };
+    });
+
+    settings.AddSeries(s=>
+    {
+        s.Name = "John";
+        s.Data = new Data(new object[]
+        {
+            3, 4, 3, 5, 4, 10, 12
+        });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new object[]
+        {
+            1, 3, 4, 3, 3, 5, 4
+        });
+    });
+
+}).Render()
+
+@section source_code{
+@@Html.Highcharts4Net().AreasplineChart(settings =>
+{
+    settings.SetTitle(s =>
+    {
+        s.Text = "Average fruit consumption during one week";
+    });
+
+    settings.SetLegend(s=>
+    {
+        s.Layout = Layouts.Vertical;
+        s.Align = HorizontalAligns.Left;
+        s.VerticalAlign = VerticalAligns.Top;
+        s.X = 150;
+        s.Y = 100;
+        s.Floating = true;
+        s.BorderWidth = 1;
+        s.BackgroundColor = new ColorOrGradient(new LiteralString("(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'"));
+    });
+
+    settings.AddXAxis(s=>
+    {
+        s.Categories = new[]
+        {
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+        };
+        s.PlotBands = new[]
+        {
+            new XAxisPlotBands
+            {
+                From = 4.5,
+                To = 6.5,
+                Color = new ColorOrGradient(Color.FromArgb(20, 68, 170, 213))
+            }
+        };
+    });
+    settings.AddYAxis(s=>
+    {
+        s.Title = new YAxisTitle
+        {
+            Text = "Fruit units"
+        };
+    });
+    settings.SetTooltip(s=>
+    {
+        s.Shared = true;
+        s.ValueSuffix = " units";
+    });
+
+    settings.SetCredits(s=>
+    {
+        s.Enabled = false;
+    });
+
+    settings.SetPlotOptions(s=>
+    {
+        s.Areaspline = new PlotOptionsAreaspline
+        {
+            FillOpacity = 0.5
+        };
+    });
+
+    settings.AddSeries(s=>
+    {
+        s.Name = "John";
+        s.Data = new Data(new object[]
+        {
+            3, 4, 3, 5, 4, 10, 12
+        });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new object[]
+        {
+            1, 3, 4, 3, 3, 5, 4
+        });
+    });
+
+}).Render()
+}

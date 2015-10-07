@@ -1,0 +1,184 @@
+﻿@using Highcharts4Net
+@using Highcharts4Net.Library.Enums
+@using Highcharts4Net.Library.Helpers
+@using Highcharts4Net.Library.Options
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "AreaChart with missing points";
+}
+
+@Html.Highcharts4Net().AreaChart(settings =>
+{
+    settings.Chart.SpacingBottom = 30;
+    settings.Title = new Title
+    {
+        Text = "Fruit consumption *"
+    };
+
+    settings.Subtitle = new Subtitle
+    {
+        Text= "* Jane's banana consumption is unknown",
+        Floating = true,
+        Align = HorizontalAligns.Right,
+        VerticalAlign = VerticalAligns.Bottom,
+        Y= 15
+    };
+
+    settings.Legend = new Legend
+    {
+        Layout = Layouts.Vertical,
+        Align = HorizontalAligns.Left,
+        VerticalAlign = VerticalAligns.Top,
+        X = 150,
+        Y = 100,
+        Floating = true,
+        BorderWidth= 1,
+        BackgroundColor=new BackColorOrGradient("(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'")
+    };
+
+    settings.XAxis = new XAxis
+    {
+        Categories = new[]
+        {
+            "Apples", "Pears", "Oranges", "Bananas", "Grapes", "Plums", "Strawberries", "Raspberries"
+        }
+    };
+    settings.YAxis = new YAxis
+    {
+        Title = new YAxisTitle
+        {
+            Text = "Y-Axis"
+        },
+        Labels = new YAxisLabels
+        {
+            Formatter = @"function () { return this.value; }"
+        }
+    };
+
+    settings.Tooltip = new Tooltip
+    {
+        Formatter = @"function () { return '<b>' + this.series.name + '</b><br/>' + this.x + ': ' + this.y; }"
+    };
+
+    settings.PlotOptions = new PlotOptions
+    {
+        Area = new PlotOptionsArea
+        {
+            FillOpacity = 0.5
+        }
+    };
+
+    settings.Credits = new Credits
+    {
+        Enabled = false
+    };
+
+    settings.Series = new[]
+    {
+        new Series
+        {
+            Name = "John",
+            Data = new Data(new object[]
+            {
+                0, 1, 4, 4, 5, 2, 3, 7
+            })
+        },
+        new Series
+        {
+            Name = "Jane",
+            Data = new Data(new object[]
+            {
+                1, 0, 3, null, 3, 1, 2, 1
+            })
+        }
+    };
+}).Render()
+
+@section source_code{
+@@Html.Highcharts4Net().AreaChart(settings =>
+{
+    settings.Chart.SpacingBottom = 30;
+    settings.Title = new Title
+    {
+        Text = "Fruit consumption *"
+    };
+
+    settings.Subtitle = new Subtitle
+    {
+        Text = "* Jane's banana consumption is unknown",
+        Floating = true,
+        Align = HorizontalAligns.Right,
+        VerticalAlign = VerticalAligns.Bottom,
+        Y = 15
+    };
+
+    settings.Legend = new Legend
+    {
+        Layout = Layouts.Vertical,
+        Align = HorizontalAligns.Left,
+        VerticalAlign = VerticalAligns.Top,
+        X = 150,
+        Y = 100,
+        Floating = true,
+        BorderWidth = 1,
+        BackgroundColor = new BackColorOrGradient("(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'")
+    };
+
+    settings.XAxis = new XAxis
+    {
+        Categories = new[]
+        {
+            "Apples", "Pears", "Oranges", "Bananas", "Grapes", "Plums", "Strawberries", "Raspberries"
+        }
+    };
+    settings.YAxis = new YAxis
+    {
+        Title = new YAxisTitle
+        {
+            Text = "Y-Axis"
+        },
+        Labels = new YAxisLabels
+        {
+            Formatter = @@"function () { return this.value; }"
+        }
+    };
+
+    settings.Tooltip = new Tooltip
+    {
+        Formatter = @@"function () { return '&lt;b>' + this.series.name + '&lt;/b>&lt;br/>' + this.x + ': ' + this.y; }"
+    };
+
+    settings.PlotOptions = new PlotOptions
+    {
+        Area = new PlotOptionsArea
+        {
+            FillOpacity = 0.5
+        }
+    };
+
+    settings.Credits = new Credits
+    {
+        Enabled = false
+    };
+
+    settings.Series = new[]
+    {
+        new Series
+        {
+            Name = "John",
+            Data = new Data(new object[]
+            {
+                0, 1, 4, 4, 5, 2, 3, 7
+            })
+        },
+        new Series
+        {
+            Name = "Jane",
+            Data = new Data(new object[]
+            {
+                1, 0, 3, null, 3, 1, 2, 1
+            })
+        }
+    };
+}).Render()
+}

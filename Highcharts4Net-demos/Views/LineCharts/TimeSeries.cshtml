@@ -1,0 +1,149 @@
+﻿@using System.Drawing
+@using Antlr.Runtime.Misc
+@using Highcharts4Net
+@using Highcharts4Net.Library.Enums
+@using Highcharts4Net.Library.Helpers
+@using Highcharts4Net.Library.Options
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Line charts » Time series, zoomable";
+}
+
+@Html.Highcharts4Net().AreaChart(settings =>
+{
+    settings.Name = "TimeSeriesChart";
+
+    settings.SetChart(s=> {s.ZoomType=ZoomTypes.X;});
+
+    settings.SetTitle(s=> { s.Text = "USD to EUR exchange rate over time"; });
+
+    settings.SetSubtitle(s => { s.Text = new FunctionString("document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'"); });
+
+    settings.AddXAxis(s =>
+    {
+        s.Type = AxisTypes.Datetime;
+    });
+
+    settings.AddYAxis(s=> {
+        s.Title = new YAxisTitle
+        {
+            Text = "Exchange rate"
+        };
+    });
+
+    settings.SetLegend(s=> { s.Enabled = false; });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Area = new PlotOptionsArea
+        {
+            FillColor = new ColorOrGradient(
+                new Gradient
+                {
+                    LinearGradient = new LinearGradient {X1 = 0, Y1 = 0, X2 = 0, Y2 = 1},
+                    Stops = new List<GradientStops>
+                    {
+                        new GradientStops(0,new ColorOrGradient("Highcharts.getOptions().colors[0]",false)),
+                        new GradientStops(1,new ColorOrGradient("Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')",false))
+                    }
+                }),
+            Marker = new PlotOptionsAreaMarker {Radius = 2},
+            LineWidth = 1,
+            States = new PlotOptionsAreaStates
+            {
+                Hover = new PlotOptionsAreaStatesHover
+                {
+                    LineWidth = 1
+                }
+            },
+            Threshold = null
+        };
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "USD to EUR";
+    });
+
+}).Render()
+
+<script>
+    Highcharts4Net.RegisterCallback(function (chartObj, chartDom, chartOptions, chartName) {
+        if (chartName === "TimeSeriesChart") {
+            $.getJSON("http://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.json&callback=?", function (data) {
+                chartOptions.series[0].data = data;
+                $(chartDom).highcharts(chartOptions);
+            });
+        }
+    });
+</script>
+
+@section source_code{
+@@Html.Highcharts4Net().AreaChart(settings =>
+{
+    settings.Name = "TimeSeriesChart";
+
+    settings.SetChart(s=> {s.ZoomType=ZoomTypes.X;});
+
+    settings.SetTitle(s=> { s.Text = "USD to EUR exchange rate over time"; });
+
+    settings.SetSubtitle(s => { s.Text = new FunctionString("document.ontouchstart === undefined ? 'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'"); });
+
+    settings.AddXAxis(s =>
+    {
+        s.Type = AxisTypes.Datetime;
+    });
+
+    settings.AddYAxis(s=> {
+        s.Title = new YAxisTitle
+        {
+            Text = "Exchange rate"
+        };
+    });
+
+    settings.SetLegend(s=> { s.Enabled = false; });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Area = new PlotOptionsArea
+        {
+            FillColor = new ColorOrGradient(
+                new Gradient
+                {
+                    LinearGradient = new LinearGradient {X1 = 0, Y1 = 0, X2 = 0, Y2 = 1},
+                    Stops = new List&lt;GradientStops>
+                    {
+                        new GradientStops(0,new ColorOrGradient("Highcharts.getOptions().colors[0]",false)),
+                        new GradientStops(1,new ColorOrGradient("Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')",false))
+                    }
+                }),
+            Marker = new PlotOptionsAreaMarker {Radius = 2},
+            LineWidth = 1,
+            States = new PlotOptionsAreaStates
+            {
+                Hover = new PlotOptionsAreaStatesHover
+                {
+                    LineWidth = 1
+                }
+            },
+            Threshold = null
+        };
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "USD to EUR";
+    });
+
+}).Render()
+
+&lt;script>
+    Highcharts4Net.RegisterCallback(function (chartObj, chartDom, chartOptions, chartName) {
+        if (chartName == "TimeSeriesChart") {
+            $.getJSON("http://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.json&callback=?", function (data) {
+                chartOptions.series[0].data = data;
+                $(chartDom).highcharts(chartOptions);
+            });
+        }
+    });
+&lt;/script>
+}

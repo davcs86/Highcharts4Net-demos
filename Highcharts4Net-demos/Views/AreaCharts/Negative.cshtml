@@ -1,0 +1,115 @@
+﻿@using Highcharts4Net
+@using Highcharts4Net.Library.Helpers
+@using Highcharts4Net.Library.Options
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "AreaChart with negative values";
+}
+
+@Html.Highcharts4Net().AreaChart(settings =>
+{
+    settings.Title = new Title
+    {
+        Text = "Area chart with negative values"
+    };
+
+    settings.Subtitle = new Subtitle
+    {
+        Text = "Source: <a href=\"http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf\">thebulletin.metapress.com</a>"
+    };
+
+    settings.XAxis = new XAxis
+    {
+        Categories = new[]
+        {
+            "Apples", "Oranges", "Pears", "Grapes", "Bananas"
+        }
+    };
+    settings.Credits = new Credits
+    {
+        Enabled = false
+    };
+    
+    settings.Series = new[]
+    {
+        new Series
+        {
+            Name = "John",
+            Data = new Data(new object[]
+            {
+                5,3,4,7,2
+            })
+        },
+        new Series
+        {
+            Name = "Jane",
+            Data = new Data(new object[]
+            {
+                2,-2,-3,2,1
+            })
+        },
+        new Series
+        {
+            Name = "Joe",
+            Data = new Data(new object[]
+            {
+                3,4,4,-2,5
+            })
+        }
+    };
+}).Render()
+
+@section source_code{
+@@Html.Highcharts4Net().AreaChart(settings =>
+{
+    settings.Title = new Title
+    {
+        Text = "Area chart with negative values"
+    };
+
+    settings.Subtitle = new Subtitle
+    {
+        Text = "Source: &lt;a href=\"http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf\">thebulletin.metapress.com&lt;/a>"
+    };
+
+    settings.XAxis = new XAxis
+    {
+        Categories = new[]
+        {
+            "Apples", "Oranges", "Pears", "Grapes", "Bananas"
+        }
+    };
+    settings.Credits = new Credits
+    {
+        Enabled = false
+    };
+
+    settings.Series = new[]
+    {
+        new Series
+        {
+            Name = "John",
+            Data = new Data(new object[]
+            {
+                5,3,4,7,2
+            })
+        },
+        new Series
+        {
+            Name = "Jane",
+            Data = new Data(new object[]
+            {
+                2,-2,-3,2,1
+            })
+        },
+        new Series
+        {
+            Name = "Joe",
+            Data = new Data(new object[]
+            {
+                3,4,4,-2,5
+            })
+        }
+    };
+}).Render()
+}

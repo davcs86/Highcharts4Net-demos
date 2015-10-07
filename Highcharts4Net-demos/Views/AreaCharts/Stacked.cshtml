@@ -1,0 +1,215 @@
+﻿@using System.Drawing
+@using Highcharts4Net
+@using Highcharts4Net.Library.Enums
+@using Highcharts4Net.Library.Helpers
+@using Highcharts4Net.Library.Options
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Stacked AreaChart";
+}
+
+@Html.Highcharts4Net().AreaChart(settings =>
+{
+    settings.Title = new Title
+    {
+        Text = "Historic and Estimated Worldwide Population Growth by Region"
+    };
+
+    settings.Subtitle = new Subtitle
+    {
+        Text = "Source: Wikipedia.org"
+    };
+
+    settings.XAxis = new XAxis
+    {
+        Categories = new[]
+        {
+            "1750", "1800", "1850", "1900", "1950", "1999", "2050"
+        },
+        TickmarkPlacement = Placement.On,
+        Title = new XAxisTitle
+        {
+            Enabled = false
+        }
+    };
+    settings.YAxis = new YAxis
+    {
+        Title = new YAxisTitle
+        {
+            Text = "Billions"
+        },
+        Labels = new YAxisLabels
+        {
+            Formatter = @"function () { return this.value / 1000; }"
+        }
+    };
+
+    settings.Tooltip = new Tooltip
+    {
+        Shared = true,
+        ValueSuffix = " millions"
+    };
+
+    settings.PlotOptions = new PlotOptions
+    {
+        Area = new PlotOptionsArea
+        {
+            Stacking = Stackings.Normal,
+            LineColor = Color.FromArgb(100, 102, 102, 102).ToHexString(),
+            LineWidth = 1,
+            Marker = new PlotOptionsAreaMarker
+            {
+                LineWidth = 1,
+                LineColor = Color.FromArgb(100, 102, 102, 102).ToHexString()
+            }
+        }
+    };
+
+    settings.Series = new[]
+    {
+        new Series
+        {
+            Name = "Asia",
+            Data = new Data(new object[]
+            {
+                502,635,809,947,1402,3634,5268
+            })
+        },
+        new Series
+        {
+            Name = "Africa",
+            Data = new Data(new object[]
+            {
+                106,107,111,133,221,767,1766
+            })
+        },
+        new Series
+        {
+            Name = "Europe",
+            Data = new Data(new object[]
+            {
+                163,203,276,408,547,729,628
+            })
+        },
+        new Series
+        {
+            Name = "America",
+            Data = new Data(new object[]
+            {
+                18,31,54,156,339,818,1201
+            })
+        },
+        new Series
+        {
+            Name = "Oceania",
+            Data = new Data(new object[]
+            {
+                2,2,2,6,13,30,46
+            })
+        }
+    };
+}).Render()
+
+@section source_code{
+@@Html.Highcharts4Net().AreaChart(settings =>
+{
+    settings.Title = new Title
+    {
+        Text = "Historic and Estimated Worldwide Population Growth by Region"
+    };
+
+    settings.Subtitle = new Subtitle
+    {
+        Text = "Source: Wikipedia.org"
+    };
+
+    settings.XAxis = new XAxis
+    {
+        Categories = new[]
+        {
+            "1750", "1800", "1850", "1900", "1950", "1999", "2050"
+        },
+        TickmarkPlacement = Placement.On,
+        Title = new XAxisTitle
+        {
+            Enabled = false
+        }
+    };
+    settings.YAxis = new YAxis
+    {
+        Title = new YAxisTitle
+        {
+            Text = "Billions"
+        },
+        Labels = new YAxisLabels
+        {
+            Formatter = @@"function () { return this.value / 1000; }"
+        }
+    };
+
+    settings.Tooltip = new Tooltip
+    {
+        Shared = true,
+        ValueSuffix = " millions"
+    };
+
+    settings.PlotOptions = new PlotOptions
+    {
+        Area = new PlotOptionsArea
+        {
+            Stacking = Stackings.Normal,
+            LineColor = Color.FromArgb(100, 102, 102, 102),
+            LineWidth = 1,
+            Marker = new PlotOptionsAreaMarker
+            {
+                LineWidth = 1,
+                LineColor = Color.FromArgb(100, 102, 102, 102)
+            }
+        }
+    };
+
+    settings.Series = new[]
+    {
+        new Series
+        {
+            Name = "Asia",
+            Data = new Data(new object[]
+            {
+                502,635,809,947,1402,3634,5268
+            })
+        },
+        new Series
+        {
+            Name = "Africa",
+            Data = new Data(new object[]
+            {
+                106,107,111,133,221,767,1766
+            })
+        },
+        new Series
+        {
+            Name = "Europe",
+            Data = new Data(new object[]
+            {
+                163,203,276,408,547,729,628
+            })
+        },
+        new Series
+        {
+            Name = "America",
+            Data = new Data(new object[]
+            {
+                18,31,54,156,339,818,1201
+            })
+        },
+        new Series
+        {
+            Name = "Oceania",
+            Data = new Data(new object[]
+            {
+                2,2,2,6,13,30,46
+            })
+        }
+    };
+}).Render()
+}

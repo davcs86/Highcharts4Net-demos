@@ -1,0 +1,259 @@
+﻿@using System.Drawing
+@using Highcharts4Net
+@using Highcharts4Net.Library.Enums
+@using Highcharts4Net.Library.Helpers
+@using Highcharts4Net.Library.Options
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Line charts » Spline with symbols";
+}
+
+@Html.Highcharts4Net().LineChart(settings =>
+{
+    settings.Name = "AjaxLoadedChart";
+
+    settings.SetTitle(s => { s.Text = "Daily visits at www.highcharts.com"; });
+
+    settings.SetTitle(s => { s.Text = "Source: Google Analytics"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Type = AxisTypes.Datetime;
+        s.TickInterval = (7*24*3600*1000);
+        s.TickWidth = 0;
+        s.GridLineWidth = 1;
+        s.Labels = new XAxisLabels
+        {
+            Align = HorizontalAligns.Left,
+            X = 3,
+            Y = -3
+        };
+    });
+    settings.AddYAxis(s =>
+    {
+        s.Title = new YAxisTitle
+        {
+            Enabled = false
+        };
+        s.Labels = new YAxisLabels
+        {
+            Align = HorizontalAligns.Left,
+            X = 3,
+            Y = 16,
+            Format = "{value:.,0f}"
+        };
+        s.ShowFirstLabel = false;
+    });
+    settings.AddYAxis(s =>
+    {
+        s.LinkedTo = 0;
+        s.GridLineWidth = 0;
+        s.Opposite = true;
+        s.Title = new YAxisTitle
+        {
+            Enabled = false
+        };
+        s.Labels = new YAxisLabels
+        {
+            Align = HorizontalAligns.Right,
+            X = -3,
+            Y = 16,
+            Format = "{value:.,0f}"
+        };
+        s.ShowFirstLabel = false;
+    });
+    settings.SetLegend(s =>
+    {
+        s.Align = HorizontalAligns.Left;
+        s.VerticalAlign = VerticalAligns.Top;
+        s.Y = 20;
+        s.Floating = true;
+        s.BorderWidth = 0;
+    });
+
+    settings.SetTooltip(s =>
+    {
+        s.Shared = true;
+        s.Crosshairs = new Crosshairs(true);
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Series = new PlotOptionsSeries
+        {
+            Cursor = Cursors.Pointer,
+            Events = new PlotOptionsSeriesEvents
+            {
+                Click = @"function(e) {
+                            if (typeof(hs)!='undefined'){
+                                hs.htmlExpand(null, {
+                                    pageOrigin:
+                                    {
+                                        x: e.pageX || e.clientX,
+                                        y: e.pageY || e.clientY
+                                    },
+                                    headingText: this.series.name,
+                                    maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' + this.y + ' visits',                                       
+                                    width: 200
+                                });
+                            } else {
+                                alert('You need to include Highslide in your page');
+                            }
+                        }"
+            },
+            Marker = new PointMarker
+            {
+                LineWidth = 1
+            }
+        };
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "All visits";
+        s.LineWidth = 4;
+
+        s.Marker = new PlotOptionsLineMarker
+        {
+            Radius = 4
+        };
+    });
+    settings.AddSeries(s => { s.Name = "New visitors"; });
+}).Render()
+
+<script>
+    Highcharts4Net.RegisterCallback(function (chartObj, chartDom, chartOptions, chartName) {
+        if (chartName === "AjaxLoadedChart") {
+            $.getJSON("http://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?", function (data) {
+                chartOptions.data = { csv: data };
+                $(chartDom).highcharts(chartOptions);
+            });
+        }
+    });
+</script>
+
+
+@section source_code{
+@@Html.Highcharts4Net().LineChart(settings =>
+{
+    settings.SetData(s => { s.getJSONP = "http://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?"; });
+
+    settings.SetTitle(s => { s.Text = "Daily visits at www.highcharts.com"; });
+
+    settings.SetTitle(s => { s.Text = "Source: Google Analytics"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.TickInterval = 7*24*3600*1000;
+        s.TickWidth = 0;
+        s.GridLineWidth = 1;
+        s.Labels = new XAxisLabels
+        {
+            Align = HorizontalAligns.Left,
+            X = 3, Y = 3
+        };
+    });
+    settings.AddYAxis(s =>
+    {
+        s.Title = new YAxisTitle
+        {
+            Enabled = false
+        };
+        s.Labels = new YAxisLabels
+        {
+            Align = HorizontalAligns.Left,
+            X = 3,
+            Y = 16,
+            Format = "{value:.,0f}"
+        };
+        s.ShowFirstLabel = false;
+    });
+    settings.AddYAxis(s =>
+    {
+        s.LinkedTo = 0;
+        s.GridLineWidth = 0;
+        s.Opposite = true;
+        s.Title = new YAxisTitle
+        {
+            Enabled = false
+        };
+        s.Labels = new YAxisLabels
+        {
+            Align = HorizontalAligns.Right,
+            X = -3,
+            Y = 16,
+            Format = "{value:.,0f}"
+        };
+        s.ShowFirstLabel = false;
+    });
+    settings.SetLegend(s =>
+    {
+        s.Align = HorizontalAligns.Left;
+        s.VerticalAlign = VerticalAligns.Top;
+        s.Y = 20;
+        s.Floating = true;
+        s.BorderWidth = 0;
+    });
+
+    settings.SetTooltip(s =>
+    {
+        s.Shared = true;
+        s.Crosshairs = new Crosshairs(true);
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Series = new PlotOptionsSeries
+        {
+            Cursor = Cursors.Pointer,
+            Events = new PlotOptionsSeriesEvents
+            {
+                Click = @@"function(e) {
+                            if (typeof(hs)!='undefined'){
+                                hs.htmlExpand(null, {
+                                    pageOrigin:
+                                    {
+                                        x: e.pageX || e.clientX,
+                                        y: e.pageY || e.clientY
+                                    },
+                                    headingText: this.series.name,
+                                    maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':&lt;br /> ' + this.y + ' visits',
+                                    width: 200
+                                });
+                            } else {
+                                alert('You need to include Highslide in your page');
+                            }
+                        }"
+            },
+            Marker = new PointMarker
+            {
+                LineWidth = 1
+            }
+        };
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "All visits";
+        s.LineWidth = 4;
+
+        s.Marker = new PlotOptionsLineMarker
+        {
+            Radius = 4
+        };
+    });
+    settings.AddSeries(s => { s.Name = "New visitors"; });
+}).Render()
+
+&lt;script>
+    Highcharts4Net.RegisterCallback(function (chartObj, chartDom, chartOptions, chartName) {
+        if (chartName === "AjaxLoadedChart") {
+            $.getJSON("http://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?", function (data) {
+                chartOptions.data = { csv: data };
+                $(chartDom).highcharts(chartOptions);
+            });
+        }
+    });
+&lt;/script>
+}
