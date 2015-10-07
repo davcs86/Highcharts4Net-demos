@@ -1,0 +1,3 @@
+[submodule "Highcharts4Net"]
+	path = Highcharts4Net
+	url = https://github.com/davcs86/Highcharts4Net.git
