@@ -3,107 +3,49 @@
 @using Highcharts4Net.Library.Enums
 @using Highcharts4Net.Library.Helpers
 @using Highcharts4Net.Library.Options
+@using Point = Highcharts4Net.Library.Options.Point
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Line charts » Spline with symbols";
 }
 
-@Html.Highcharts4Net().LineChart(settings =>
+@Html.Highcharts4Net().SplineChart(settings =>
 {
-    settings.Name = "AjaxLoadedChart";
+    settings.Name = "SplineWithSymbols";
 
-    settings.SetTitle(s => { s.Text = "Daily visits at www.highcharts.com"; });
+    settings.SetTitle(s => { s.Text = "Monthly Average Temperature"; });
 
-    settings.SetTitle(s => { s.Text = "Source: Google Analytics"; });
+    settings.SetTitle(s => { s.Text = "Source: WorldClimate.com"; });
 
-    settings.AddXAxis(s =>
-    {
-        s.Type = AxisTypes.Datetime;
-        s.TickInterval = (7*24*3600*1000);
-        s.TickWidth = 0;
-        s.GridLineWidth = 1;
-        s.Labels = new XAxisLabels
-        {
-            Align = HorizontalAligns.Left,
-            X = 3,
-            Y = -3
-        };
-    });
+    settings.AddXAxis(s => { s.Categories = new[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}; });
     settings.AddYAxis(s =>
     {
         s.Title = new YAxisTitle
         {
-            Enabled = false
+            Text = "Temperature"
         };
         s.Labels = new YAxisLabels
         {
-            Align = HorizontalAligns.Left,
-            X = 3,
-            Y = 16,
-            Format = "{value:.,0f}"
+            Formatter = @"function () {
+                    return this.value + '°';
+                }"
         };
-        s.ShowFirstLabel = false;
     });
-    settings.AddYAxis(s =>
-    {
-        s.LinkedTo = 0;
-        s.GridLineWidth = 0;
-        s.Opposite = true;
-        s.Title = new YAxisTitle
-        {
-            Enabled = false
-        };
-        s.Labels = new YAxisLabels
-        {
-            Align = HorizontalAligns.Right,
-            X = -3,
-            Y = 16,
-            Format = "{value:.,0f}"
-        };
-        s.ShowFirstLabel = false;
-    });
-    settings.SetLegend(s =>
-    {
-        s.Align = HorizontalAligns.Left;
-        s.VerticalAlign = VerticalAligns.Top;
-        s.Y = 20;
-        s.Floating = true;
-        s.BorderWidth = 0;
-    });
-
     settings.SetTooltip(s =>
     {
-        s.Shared = true;
         s.Crosshairs = new Crosshairs(true);
+        s.Shared = true;
     });
 
     settings.SetPlotOptions(s =>
     {
-        s.Series = new PlotOptionsSeries
+        s.Spline = new PlotOptionsSpline
         {
-            Cursor = Cursors.Pointer,
-            Events = new PlotOptionsSeriesEvents
+            Marker = new PlotOptionsSplineMarker
             {
-                Click = @"function(e) {
-                            if (typeof(hs)!='undefined'){
-                                hs.htmlExpand(null, {
-                                    pageOrigin:
-                                    {
-                                        x: e.pageX || e.clientX,
-                                        y: e.pageY || e.clientY
-                                    },
-                                    headingText: this.series.name,
-                                    maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' + this.y + ' visits',                                       
-                                    width: 200
-                                });
-                            } else {
-                                alert('You need to include Highslide in your page');
-                            }
-                        }"
-            },
-            Marker = new PointMarker
-            {
+                Radius = 4,
+                LineColor = "#666666",
                 LineWidth = 1
             }
         };
@@ -111,123 +53,83 @@
 
     settings.AddSeries(s =>
     {
-        s.Name = "All visits";
-        s.LineWidth = 4;
-
-        s.Marker = new PlotOptionsLineMarker
+        s.Name = "Tokyo";
+        s.Marker = new PlotOptionsSplineMarker
         {
-            Radius = 4
+            Symbol = "square"
         };
+        s.Data = new Data(new object[]
+        {
+            7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, new Point
+            {
+                Y = 26.5,
+                Marker = new PlotOptionsSeriesMarker
+                {
+                    Symbol = "url(http://www.highcharts.com/demo/gfx/sun.png)"
+                }
+            },
+            23.3, 18.3, 13.9, 9.6
+        });
     });
-    settings.AddSeries(s => { s.Name = "New visitors"; });
+    settings.AddSeries(s =>
+    {
+        s.Name = "London";
+        s.Marker = new PlotOptionsSplineMarker
+        {
+            Symbol = "diamond"
+        };
+        s.Data = new Data(new object[]
+        {
+            new Point
+            {
+                Y = 3.9,
+                Marker = new PlotOptionsSeriesMarker
+                {
+                    Symbol = "url(http://www.highcharts.com/demo/gfx/snow.png)"
+                }
+            }, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8
+        });
+    });
 }).Render()
-
-<script>
-    Highcharts4Net.RegisterCallback(function (chartObj, chartDom, chartOptions, chartName) {
-        if (chartName === "AjaxLoadedChart") {
-            $.getJSON("http://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?", function (data) {
-                chartOptions.data = { csv: data };
-                $(chartDom).highcharts(chartOptions);
-            });
-        }
-    });
-</script>
 
 
 @section source_code{
-@@Html.Highcharts4Net().LineChart(settings =>
+@@Html.Highcharts4Net().SplineChart(settings =>
 {
-    settings.SetData(s => { s.getJSONP = "http://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?"; });
+    settings.Name = "SplineWithSymbols";
 
-    settings.SetTitle(s => { s.Text = "Daily visits at www.highcharts.com"; });
+    settings.SetTitle(s => { s.Text = "Monthly Average Temperature"; });
 
-    settings.SetTitle(s => { s.Text = "Source: Google Analytics"; });
+    settings.SetTitle(s => { s.Text = "Source: WorldClimate.com"; });
 
-    settings.AddXAxis(s =>
-    {
-        s.TickInterval = 7*24*3600*1000;
-        s.TickWidth = 0;
-        s.GridLineWidth = 1;
-        s.Labels = new XAxisLabels
-        {
-            Align = HorizontalAligns.Left,
-            X = 3, Y = 3
-        };
-    });
+    settings.AddXAxis(s => { s.Categories = new[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}; });
     settings.AddYAxis(s =>
     {
         s.Title = new YAxisTitle
         {
-            Enabled = false
+            Text = "Temperature"
         };
         s.Labels = new YAxisLabels
         {
-            Align = HorizontalAligns.Left,
-            X = 3,
-            Y = 16,
-            Format = "{value:.,0f}"
+            Formatter = @@"function () {
+                    return this.value + '°';
+                }"
         };
-        s.ShowFirstLabel = false;
     });
-    settings.AddYAxis(s =>
-    {
-        s.LinkedTo = 0;
-        s.GridLineWidth = 0;
-        s.Opposite = true;
-        s.Title = new YAxisTitle
-        {
-            Enabled = false
-        };
-        s.Labels = new YAxisLabels
-        {
-            Align = HorizontalAligns.Right,
-            X = -3,
-            Y = 16,
-            Format = "{value:.,0f}"
-        };
-        s.ShowFirstLabel = false;
-    });
-    settings.SetLegend(s =>
-    {
-        s.Align = HorizontalAligns.Left;
-        s.VerticalAlign = VerticalAligns.Top;
-        s.Y = 20;
-        s.Floating = true;
-        s.BorderWidth = 0;
-    });
-
     settings.SetTooltip(s =>
     {
-        s.Shared = true;
         s.Crosshairs = new Crosshairs(true);
+        s.Shared = true;
     });
 
     settings.SetPlotOptions(s =>
     {
-        s.Series = new PlotOptionsSeries
+        s.Spline = new PlotOptionsSpline
         {
-            Cursor = Cursors.Pointer,
-            Events = new PlotOptionsSeriesEvents
+            Marker = new PlotOptionsSplineMarker
             {
-                Click = @@"function(e) {
-                            if (typeof(hs)!='undefined'){
-                                hs.htmlExpand(null, {
-                                    pageOrigin:
-                                    {
-                                        x: e.pageX || e.clientX,
-                                        y: e.pageY || e.clientY
-                                    },
-                                    headingText: this.series.name,
-                                    maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':&lt;br /> ' + this.y + ' visits',
-                                    width: 200
-                                });
-                            } else {
-                                alert('You need to include Highslide in your page');
-                            }
-                        }"
-            },
-            Marker = new PointMarker
-            {
+                Radius = 4,
+                LineColor = "#666666",
                 LineWidth = 1
             }
         };
@@ -235,25 +137,42 @@
 
     settings.AddSeries(s =>
     {
-        s.Name = "All visits";
-        s.LineWidth = 4;
-
-        s.Marker = new PlotOptionsLineMarker
+        s.Name = "Tokyo";
+        s.Marker = new PlotOptionsSplineMarker
         {
-            Radius = 4
+            Symbol = "square"
         };
+        s.Data = new Data(new object[]
+        {
+            7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, new Point
+            {
+                Y = 26.5,
+                Marker = new PlotOptionsSeriesMarker
+                {
+                    Symbol = "url(http://www.highcharts.com/demo/gfx/sun.png)"
+                }
+            },
+            23.3, 18.3, 13.9, 9.6
+        });
     });
-    settings.AddSeries(s => { s.Name = "New visitors"; });
+    settings.AddSeries(s =>
+    {
+        s.Name = "London";
+        s.Marker = new PlotOptionsSplineMarker
+        {
+            Symbol = "diamond"
+        };
+        s.Data = new Data(new object[]
+        {
+            new Point
+            {
+                Y = 3.9,
+                Marker = new PlotOptionsSeriesMarker
+                {
+                    Symbol = "url(http://www.highcharts.com/demo/gfx/snow.png)"
+                }
+            }, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8
+        });
+    });
 }).Render()
-
-&lt;script>
-    Highcharts4Net.RegisterCallback(function (chartObj, chartDom, chartOptions, chartName) {
-        if (chartName === "AjaxLoadedChart") {
-            $.getJSON("http://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?", function (data) {
-                chartOptions.data = { csv: data };
-                $(chartDom).highcharts(chartOptions);
-            });
-        }
-    });
-&lt;/script>
 }

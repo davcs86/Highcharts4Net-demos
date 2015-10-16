@@ -45,5 +45,11 @@ namespace Highcharts4Net_demos.Controllers
         {
             return View();
         }
+
+        // GET: ~/LineCharts/SplineWithPlotBands
+        public ActionResult SplineWithPlotBands()
+        {
+            return View();
+        }
     }
 }
