@@ -57,5 +57,11 @@ namespace Highcharts4Net_demos.Controllers
         {
             return View();
         }
+
+        //GET ~/LineCharts/LogarithmicAxis
+        public ActionResult LogarithmicAxis()
+        {
+            return View();
+        }
     }
 }

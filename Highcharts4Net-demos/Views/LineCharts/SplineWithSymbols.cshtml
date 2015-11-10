@@ -16,7 +16,7 @@
 
     settings.SetTitle(s => { s.Text = "Monthly Average Temperature"; });
 
-    settings.SetTitle(s => { s.Text = "Source: WorldClimate.com"; });
+    settings.SetSubtitle(s => { s.Text = "Source: WorldClimate.com"; });
 
     settings.AddXAxis(s => { s.Categories = new[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}; });
     settings.AddYAxis(s =>

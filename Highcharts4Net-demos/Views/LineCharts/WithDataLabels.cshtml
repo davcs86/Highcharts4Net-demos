@@ -9,46 +9,46 @@
     ViewBag.Title = "Line charts » With data labels";
 }
 
-@Html.Highcharts4Net().LineChart(settings =>
-{
-    settings.SetTitle(s =>
-    {
-        s.Text = "Monthly Average Temperature";
-    });
-    settings.SetSubtitle(s =>
-    {
-        s.Text = "Source: WorldClimate.com";
-    });
-    settings.AddXAxis(s =>
-    {
-        s.Categories = new[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-    });
-    settings.AddYAxis(s =>
-    {
-        s.Title = new YAxisTitle {Text = "Temperature (°C)"};
-    });
-    settings.SetPlotOptions(s =>
-    {
-        s.Line = new PlotOptionsLine
-        {
-            DataLabels = new PlotOptionsLineDataLabels
+@Html.Highcharts4Net().LineChart((Action<Highcharts4Net.Library.LineChartSettings>)(settings =>
             {
-                Enabled = true
-            },
-            EnableMouseTracking = false
-        };
-    });
-    settings.AddSeries(s =>
-    {
-        s.Name = "Tokyo";
-        s.Data = new Data(new NumberOrDateTime?[]{ 7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6 });
-    });
-    settings.AddSeries(s =>
-    {
-        s.Name = "London";
-        s.Data = new Data(new NumberOrDateTime?[] { 3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8 });
-    });
-}).Render()
+                settings.SetTitle(s =>
+                {
+                    s.Text = "Monthly Average Temperature";
+                });
+                settings.SetSubtitle(s =>
+                {
+                    s.Text = "Source: WorldClimate.com";
+                });
+                settings.AddXAxis(s =>
+                {
+                    s.Categories = new[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+                });
+                settings.AddYAxis(s =>
+                {
+                    s.Title = new YAxisTitle { Text = "Temperature (°C)"};
+                });
+                settings.SetPlotOptions(s =>
+                {
+                    s.Line = new PlotOptionsLine
+                    {
+                        DataLabels = new PlotOptionsLineDataLabels
+                        {
+                            Enabled = true
+                        },
+                        EnableMouseTracking = false
+                    };
+                });
+                settings.AddSeries((Highcharts4Net.Library.SerieLineSettings)(s =>
+                {
+                    s.Name = "Tokyo";
+                    s.Data = new Data((NumberOrDateTime?[])(new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{ 7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6 }));
+                }));
+                settings.AddSeries((Highcharts4Net.Library.SerieLineSettings)(s =>
+                {
+                    s.Name = "London";
+                    s.Data = new Data((NumberOrDateTime?[])(new Highcharts4Net.Library.Helpers.NumberOrDateTime?[] { 3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8 }));
+                }));
+            })).Render()
 
 
 @section source_code{

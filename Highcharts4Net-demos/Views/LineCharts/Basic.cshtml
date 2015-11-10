@@ -8,100 +8,100 @@
     ViewBag.Title = "Line charts » Basic line";
 }
 
-@Html.Highcharts4Net().LineChart(settings =>
-{
+@Html.Highcharts4Net().LineChart((Action<Highcharts4Net.Library.LineChartSettings>)(settings =>
+            {
 
-    settings.AddColor(new ColorOrGradient(Color.Red));
-    settings.AddColor(new ColorOrGradient(Color.Green));
-    settings.AddColor(new ColorOrGradient(Color.Blue));
+                settings.AddColor(new ColorOrGradient(Color.Red));
+                settings.AddColor(new ColorOrGradient(Color.Green));
+                settings.AddColor(new ColorOrGradient(Color.Blue));
 
-    settings.SetCredits(s =>
-    {
-        s.Enabled = false;
-    });
+                settings.SetCredits(s =>
+                {
+                    s.Enabled = false;
+                });
 
-    settings.SetTitle(s =>
-    {
-        s.Text = "Monthly Average Temperature";
-        s.X = -20;
-    });
+                settings.SetTitle((TitleSettings)(s =>
+                {
+                    s.Text = "Monthly Average Temperature";
+                    s.X = -20;
+                }));
 
-    settings.SetSubtitle(s=>
-    {
-        s.Text = "Source: WorldClimate.com";
-        s.X = -20;
-    });
+                settings.SetSubtitle((SubtitleSettings)(s=>
+                {
+                    s.Text = "Source: WorldClimate.com";
+                    s.X = -20;
+                }));
 
-    settings.AddXAxis(s=>
-    {
-        s.Categories = new[]
-        {
+                settings.AddXAxis(s=>
+                {
+                    s.Categories = new[]
+                    {
             "Jan", "Feb", "Mar", "Apr", "May", "Jun",
             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
         };
-    });
+                });
 
-    settings.AddYAxis(s =>
-    {
-        s.Title = new YAxisTitle {Text = "Temperature °C"};
-        s.PlotLines = new[]
-        {
+                settings.AddYAxis((YAxisSettings)(s =>
+                {
+                    s.Title = new YAxisTitle { Text = "Temperature °C"};
+                    s.PlotLines = new[]
+                    {
             new YAxisPlotLines
             {
                 Value = 0, Width = 1, Color = new ColorOrGradient("#808008")
             }
         };
-    });
+                }));
 
-    settings.SetTooltip(s=>
-    {
-        s.ValueSuffix = "°C";
-    });
+                settings.SetTooltip(s=>
+                {
+                    s.ValueSuffix = "°C";
+                });
 
-    settings.SetLegend(s=>
-    {
-        s.Layout = Layouts.Vertical;
-        s.Align = HorizontalAligns.Right;
-        s.VerticalAlign = VerticalAligns.Middle;
-        s.BorderWidth = 0;
-    });
+                settings.SetLegend((LegendSettings)(s=>
+                {
+                    s.Layout = Layouts.Vertical;
+                    s.Align = HorizontalAligns.Right;
+                    s.VerticalAlign = VerticalAligns.Middle;
+                    s.BorderWidth = 0;
+                }));
 
-    settings.AddSeries(s=>
-    {
-        s.Name = "Tokyo";
-        s.Data = new Data(new NumberOrDateTime?[]
-        {
+                settings.AddSeries((Highcharts4Net.Library.SerieLineSettings)(s=>
+                {
+                    s.Name = "Tokyo";
+                    s.Data = new Data((NumberOrDateTime?[])(new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]
+                    {
             7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6
-        });
-    });
+                    }));
+                }));
 
-    settings.AddSeries(s =>
-    {
-        s.Name = "New York";
-        s.Data = new Data(new NumberOrDateTime?[]
-        {
+                settings.AddSeries((Highcharts4Net.Library.SerieLineSettings)(s =>
+                {
+                    s.Name = "New York";
+                    s.Data = new Data((NumberOrDateTime?[])(new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]
+                    {
             -0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5
-        });
-    });
+                    }));
+                }));
 
-    settings.AddSeries(s =>
-    {
-        s.Name = "Berlin";
-        s.Data = new Data(new NumberOrDateTime?[]
-        {
+                settings.AddSeries((Highcharts4Net.Library.SerieLineSettings)(s =>
+                {
+                    s.Name = "Berlin";
+                    s.Data = new Data((NumberOrDateTime?[])(new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]
+                    {
             -0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0
-        });
-    });
+                    }));
+                }));
 
-    settings.AddSeries(s =>
-    {
-        s.Name = "London";
-        s.Data = new Data(new NumberOrDateTime?[]
-        {
+                settings.AddSeries((Highcharts4Net.Library.SerieLineSettings)(s =>
+                {
+                    s.Name = "London";
+                    s.Data = new Data((NumberOrDateTime?[])(new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]
+                    {
             3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8
-        });
-    });
-}).Render()
+                    }));
+                }));
+            })).Render()
 
 @section source_code{
 @@Html.Highcharts4Net().LineChart(settings =>

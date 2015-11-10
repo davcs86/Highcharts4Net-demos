@@ -8,35 +8,35 @@
     ViewBag.Title = "Line charts » Spline with plot bands";
 }
 
-@Html.Highcharts4Net().SplineChart(settings =>
-{
-    settings.Name = "SplineWithPlotBands";
+@Html.Highcharts4Net().SplineChart((Action<Highcharts4Net.Library.SplineChartSettings>)(settings =>
+            {
+                settings.Name = "SplineWithPlotBands";
 
-    settings.SetTitle(s => { s.Text = "Wind speed during two days"; });
+                settings.SetTitle(s => { s.Text = "Wind speed during two days"; });
 
-    settings.SetTitle(s => { s.Text = "May 31 and and June 1, 2015 at two locations in Vik i Sogn, Norway"; });
+                settings.SetSubtitle(s => { s.Text = "May 31 and and June 1, 2015 at two locations in Vik i Sogn, Norway"; });
 
-    settings.AddXAxis(s =>
-    {
-        s.Type = AxisTypes.Datetime;
-        s.Labels = new XAxisLabels
-        {
-            Overflow = "justify"
-        };
-    });
+                settings.AddXAxis(s =>
+                {
+                    s.Type = AxisTypes.Datetime;
+                    s.Labels = new XAxisLabels
+                    {
+                        Overflow = "justify"
+                    };
+                });
 
-    settings.AddYAxis(s =>
-    {
-        s.Title = new YAxisTitle
-        {
-            Text = "Wind speed (m/s)"
-        };
-        s.MinorGridLineWidth = 0;
-        s.MinorGridLineWidth = 0;
-        s.GridLineWidth = 0;
-        s.AlternateGridColor = null;
-        s.PlotBands = new []
-        {
+                settings.AddYAxis((YAxisSettings)(s =>
+                {
+                    s.Title = new YAxisTitle
+                    {
+                        Text = "Wind speed (m/s)"
+                    };
+                    s.MinorGridLineWidth = 0;
+                    s.MinorGridLineWidth = 0;
+                    s.GridLineWidth = 0;
+                    s.AlternateGridColor = null;
+                    s.PlotBands = new []
+                    {
             new YAxisPlotBands
             {
                 // Light air
@@ -46,7 +46,9 @@
                 Label = new YAxisPlotBandsLabel
                 {
                     Text = "Light air",
-                    Style = "{color:'#606060'}"
+                    Style = new CSSObject {
+                        Color="#606060"
+                    }
                 }
             },
             new YAxisPlotBands
@@ -58,7 +60,9 @@
                 Label = new YAxisPlotBandsLabel
                 {
                     Text = "Light breeze",
-                    Style = "{color: '#606060'}"
+                    Style = new CSSObject {
+                        Color="#606060"
+                    }
                 }
             },
             new YAxisPlotBands
@@ -70,7 +74,9 @@
                 Label = new YAxisPlotBandsLabel
                 {
                     Text = "Gentle breeze",
-                    Style = "{color:'#606060'}"
+                    Style = new CSSObject {
+                        Color="#606060"
+                    }
                 }
             },
             new  YAxisPlotBands
@@ -82,7 +88,9 @@
                 Label = new YAxisPlotBandsLabel
                 {
                     Text = "Moderate breeze",
-                    Style = "{color:'#606060'}"
+                    Style = new CSSObject {
+                        Color="#606060"
+                    }
                 }
             },
             new  YAxisPlotBands
@@ -94,9 +102,11 @@
                 Label = new YAxisPlotBandsLabel
                 {
                     Text = "Fresh breeze",
-                    Style = "{color:'#606060'}"
+                    Style = new CSSObject {
+                        Color="#606060"
+                    }
                 }
-            }, 
+            },
             new  YAxisPlotBands
             { 
                 // Strong breeze
@@ -106,9 +116,11 @@
                 Label = new YAxisPlotBandsLabel
                 {
                     Text = "Strong breeze",
-                    Style = "{color:'#606060'}"
+                    Style = new CSSObject {
+                        Color="#606060"
+                    }
                 }
-            }, 
+            },
             new  YAxisPlotBands
             { 
                 // High wind
@@ -118,47 +130,49 @@
                 Label = new YAxisPlotBandsLabel
                 {
                     Text = "High wind",
-                    Style = "{color:'#606060'}"
+                    Style = new CSSObject {
+                        Color="#606060"
+                    }
                 }
             }
         };
-    });
+                }));
 
-    settings.SetTooltip(s => { s.ValueSuffix = "m/s"; });
+                settings.SetTooltip(s => { s.ValueSuffix = "m/s"; });
 
-    settings.SetPlotOptions(s =>
-    {
-        s.Spline = new PlotOptionsSpline
-        {
-            LineWidth = 4,
-            States = new PlotOptionsSplineStates
-            {
-                Hover = new PlotOptionsSplineStatesHover
+                settings.SetPlotOptions((PlotOptionsSettings)(s =>
                 {
-                    LineWidth = 5
-                }
-            },
-            PointInterval = 3600000, // one hour
-            PointStart = new PointStart(new DateTime(2015, 5, 31)),
-            Marker = new PlotOptionsSplineMarker
-            {
-                Enabled = false
-            }
-        };
-    });
+                    s.Spline = new PlotOptionsSpline
+                    {
+                        LineWidth = 4,
+                        States = new PlotOptionsSplineStates
+                        {
+                            Hover = new PlotOptionsSplineStatesHover
+                            {
+                                LineWidth = 5
+                            }
+                        },
+                        PointInterval = 3600000, // one hour
+                        PointStart = new Highcharts4Net.Library.Helpers.NumberOrDateTime(new DateTime(2015, 5, 31)),
+                        Marker = new PlotOptionsSplineMarker
+                        {
+                            Enabled = false
+                        }
+                    };
+                }));
 
-    settings.AddSeries(s =>
-    {
-        s.Name = "Hestavollane";
-        s.Data = new Data(new NumberOrDateTime?[] {0.2, 0.8, 0.8, 0.8, 1, 1.3, 1.5, 2.9, 1.9, 2.6, 1.6, 3, 4, 3.6, 4.5, 4.2, 4.5, 4.5, 4, 3.1, 2.7, 4, 2.7, 2.3, 2.3, 4.1, 7.7, 7.1, 5.6, 6.1, 5.8, 8.6, 7.2, 9, 10.9, 11.5, 11.6, 11.1, 12, 12.3, 10.7, 9.4, 9.8, 9.6, 9.8, 9.5, 8.5, 7.4, 7.6});
-    });
-    settings.AddSeries(s =>
-    {
-        s.Name = "Vik";
-        s.Data = new Data(new NumberOrDateTime?[] {0, 0, 0.6, 0.9, 0.8, 0.2, 0, 0, 0, 0.1, 0.6, 0.7, 0.8, 0.6, 0.2, 0, 0.1, 0.3, 0.3, 0, 0.1, 0, 0, 0, 0.2, 0.1, 0, 0.3, 0, 0.1, 0.2, 0.1, 0.3, 0.3, 0, 3.1, 3.1, 2.5, 1.5, 1.9, 2.1, 1, 2.3, 1.9, 1.2, 0.7, 1.3, 0.4, 0.3});
-    });
-    settings.SetNavigation(s => { s.MenuItemStyle = "{fontSize: '10px'}"; });
-}).Render()
+                settings.AddSeries((Highcharts4Net.Library.SerieSplineSettings)(s =>
+                {
+                    s.Name = "Hestavollane";
+                    s.Data = new Data((NumberOrDateTime?[])(new Highcharts4Net.Library.Helpers.NumberOrDateTime?[] {0.2, 0.8, 0.8, 0.8, 1, 1.3, 1.5, 2.9, 1.9, 2.6, 1.6, 3, 4, 3.6, 4.5, 4.2, 4.5, 4.5, 4, 3.1, 2.7, 4, 2.7, 2.3, 2.3, 4.1, 7.7, 7.1, 5.6, 6.1, 5.8, 8.6, 7.2, 9, 10.9, 11.5, 11.6, 11.1, 12, 12.3, 10.7, 9.4, 9.8, 9.6, 9.8, 9.5, 8.5, 7.4, 7.6}));
+                }));
+                settings.AddSeries((Highcharts4Net.Library.SerieSplineSettings)(s =>
+                {
+                    s.Name = "Vik";
+                    s.Data = new Data((NumberOrDateTime?[])(new Highcharts4Net.Library.Helpers.NumberOrDateTime?[] {0, 0, 0.6, 0.9, 0.8, 0.2, 0, 0, 0, 0.1, 0.6, 0.7, 0.8, 0.6, 0.2, 0, 0.1, 0.3, 0.3, 0, 0.1, 0, 0, 0, 0.2, 0.1, 0, 0.3, 0, 0.1, 0.2, 0.1, 0.3, 0.3, 0, 3.1, 3.1, 2.5, 1.5, 1.9, 2.1, 1, 2.3, 1.9, 1.2, 0.7, 1.3, 0.4, 0.3}));
+                }));
+                settings.SetNavigation(s => { s.MenuItemStyle = new CSSObject { FontSize = "10px"}; });
+            })).Render()
 
 
 @section source_code{
