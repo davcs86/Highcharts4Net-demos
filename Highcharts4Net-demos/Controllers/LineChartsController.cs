@@ -51,5 +51,11 @@ namespace Highcharts4Net_demos.Controllers
         {
             return View();
         }
+
+        // GET: ~/LineCharts/SplineIrregularTime
+        public ActionResult SplineIrregularTime()
+        {
+            return View();
+        }
     }
 }
