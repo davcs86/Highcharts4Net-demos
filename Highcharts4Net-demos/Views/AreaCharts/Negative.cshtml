@@ -3,113 +3,93 @@
 @using Highcharts4Net.Library.Options
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "AreaChart with negative values";
+    ViewBag.Title = "Area charts » Area with negative values";
 }
 
 @Html.Highcharts4Net().AreaChart(settings =>
 {
-    settings.Title = new Title
-    {
-        Text = "Area chart with negative values"
-    };
+    settings.SetTitle(s => s.Text = "Area chart with negative values");
 
-    settings.Subtitle = new Subtitle
-    {
-        Text = "Source: <a href=\"http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf\">thebulletin.metapress.com</a>"
-    };
+    settings.SetSubtitle(s=>s.Text = "Source: <a href=\"http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf\">thebulletin.metapress.com</a>"
+    );
 
-    settings.XAxis = new XAxis
+    settings.AddXAxis(s=>
     {
-        Categories = new[]
+        s.Categories = new[]
         {
             "Apples", "Oranges", "Pears", "Grapes", "Bananas"
-        }
-    };
-    settings.Credits = new Credits
+        };
+    });
+
+    settings.SetCredits(s=>s.Enabled = false);
+
+    settings.AddSeries(s =>
     {
-        Enabled = false
-    };
-    
-    settings.Series = new[]
-    {
-        new Series
+        s.Name = "John";
+        s.Data = new Data(new NumberOrDateTime?[]
         {
-            Name = "John",
-            Data = new Data(new object[]
-            {
                 5,3,4,7,2
-            })
-        },
-        new Series
+        });
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new NumberOrDateTime?[]
         {
-            Name = "Jane",
-            Data = new Data(new object[]
-            {
                 2,-2,-3,2,1
-            })
-        },
-        new Series
+        });
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "Joe";
+        s.Data = new Data(new NumberOrDateTime?[]
         {
-            Name = "Joe",
-            Data = new Data(new object[]
-            {
-                3,4,4,-2,5
-            })
-        }
-    };
+            3,4,4,-2,5
+        });
+    });
 }).Render()
 
 @section source_code{
 @@Html.Highcharts4Net().AreaChart(settings =>
 {
-    settings.Title = new Title
-    {
-        Text = "Area chart with negative values"
-    };
+    settings.SetTitle(s => s.Text = "Area chart with negative values");
 
-    settings.Subtitle = new Subtitle
-    {
-        Text = "Source: &lt;a href=\"http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf\">thebulletin.metapress.com&lt;/a>"
-    };
+    settings.SetSubtitle(s=>s.Text = "Source: &lt;a href=\"http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf\">thebulletin.metapress.com&lt;/a>"
+    );
 
-    settings.XAxis = new XAxis
+    settings.AddXAxis(s=>
     {
-        Categories = new[]
+        s.Categories = new[]
         {
             "Apples", "Oranges", "Pears", "Grapes", "Bananas"
-        }
-    };
-    settings.Credits = new Credits
-    {
-        Enabled = false
-    };
+        };
+    });
 
-    settings.Series = new[]
+    settings.SetCredits(s=>s.Enabled = false);
+
+    settings.AddSeries(s =>
     {
-        new Series
+        s.Name = "John";
+        s.Data = new Data(new NumberOrDateTime?[]
         {
-            Name = "John",
-            Data = new Data(new object[]
-            {
                 5,3,4,7,2
-            })
-        },
-        new Series
+        });
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new NumberOrDateTime?[]
         {
-            Name = "Jane",
-            Data = new Data(new object[]
-            {
                 2,-2,-3,2,1
-            })
-        },
-        new Series
+        });
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "Joe";
+        s.Data = new Data(new NumberOrDateTime?[]
         {
-            Name = "Joe",
-            Data = new Data(new object[]
-            {
-                3,4,4,-2,5
-            })
-        }
-    };
+            3,4,4,-2,5
+        });
+    });
 }).Render()
 }

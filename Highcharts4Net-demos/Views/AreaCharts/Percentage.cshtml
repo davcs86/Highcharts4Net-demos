@@ -10,45 +10,39 @@
 
 @Html.Highcharts4Net().AreaChart(settings =>
 {
-    settings.Title = new Title
-    {
-        Text = "Historic and Estimated Worldwide Population Distribution by Region"
-    };
+    settings.SetTitle(s => s.Text = "Historic and Estimated Worldwide Population Distribution by Region");
 
-    settings.Subtitle = new Subtitle
-    {
-        Text = "Source: Wikipedia.org"
-    };
+    settings.SetSubtitle(s => s.Text = "Source: Wikipedia.org");
 
-    settings.XAxis = new XAxis
+    settings.AddXAxis(s =>
     {
-        Categories = new[]
+        s.Categories = new[]
         {
             "1750", "1800", "1850", "1900", "1950", "1999", "2050"
-        },
-        TickmarkPlacement = Placement.On,
-        Title = new XAxisTitle
+        };
+        s.TickmarkPlacement = Placement.On;
+        s.Title = new XAxisTitle
         {
             Enabled = false
-        }
-    };
-    settings.YAxis = new YAxis
+        };
+    });
+    settings.AddYAxis(s =>
     {
-        Title = new YAxisTitle
+        s.Title = new YAxisTitle
         {
             Text = "Percent"
-        }
-    };
+        };
+    });
 
-    settings.Tooltip = new Tooltip
+    settings.SetTooltip(s =>
     {
-        Shared = true,
-        PointFormat = "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f} millions)<br/>"
-    };
+        s.Shared = true;
+        s.PointFormat = "<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f} millions)<br/>";
+    });
 
-    settings.PlotOptions = new PlotOptions
+    settings.SetPlotOptions(s =>
     {
-        Area = new PlotOptionsArea
+        s.Area = new PlotOptionsArea
         {
             Stacking = Stackings.Percent,
             LineColor = Color.FromArgb(100, 255, 255, 255).ToHexString(),
@@ -58,96 +52,87 @@
                 LineWidth = 1,
                 LineColor = Color.FromArgb(100, 255, 255, 255).ToHexString()
             }
-        }
-    };
+        };
+    });
 
-    settings.Series = new[]
+    settings.AddSeries(s =>
     {
-        new Series
+        s.Name = "Asia";
+        s.Data = new Data(new object[]
         {
-            Name = "Asia",
-            Data = new Data(new object[]
-            {
                 502,635,809,947,1402,3634,5268
-            })
-        },
-        new Series
+        });
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "Africa";
+        s.Data = new Data(new object[]
         {
-            Name = "Africa",
-            Data = new Data(new object[]
-            {
                 106,107,111,133,221,767,1766
-            })
-        },
-        new Series
+        });
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "Europe";
+        s.Data = new Data(new object[]
         {
-            Name = "Europe",
-            Data = new Data(new object[]
-            {
                 163,203,276,408,547,729,628
-            })
-        },
-        new Series
+        });
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "America";
+        s.Data = new Data(new object[]
         {
-            Name = "America",
-            Data = new Data(new object[]
-            {
                 18,31,54,156,339,818,1201
-            })
-        },
-        new Series
+        });
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "Oceania";
+        s.Data = new Data(new object[]
         {
-            Name = "Oceania",
-            Data = new Data(new object[]
-            {
                 2,2,2,6,13,30,46
-            })
-        }
-    };
+        });
+    });
 }).Render()
 
 @section source_code{
 @@Html.Highcharts4Net().AreaChart(settings =>
 {
-    settings.Title = new Title
-    {
-        Text = "Historic and Estimated Worldwide Population Distribution by Region"
-    };
+    settings.SetTitle(s => s.Text = "Historic and Estimated Worldwide Population Distribution by Region");
 
-    settings.Subtitle = new Subtitle
-    {
-        Text = "Source: Wikipedia.org"
-    };
+    settings.SetSubtitle(s => s.Text = "Source: Wikipedia.org");
 
-    settings.XAxis = new XAxis
+    settings.AddXAxis(s =>
     {
-        Categories = new[]
+        s.Categories = new[]
         {
             "1750", "1800", "1850", "1900", "1950", "1999", "2050"
-        },
-        TickmarkPlacement = Placement.On,
-        Title = new XAxisTitle
+        };
+        s.TickmarkPlacement = Placement.On;
+        s.Title = new XAxisTitle
         {
             Enabled = false
-        }
-    };
-    settings.YAxis = new YAxis
+        };
+    });
+    settings.AddYAxis(s =>
     {
-        Title = new YAxisTitle
+        s.Title = new YAxisTitle
         {
             Text = "Percent"
-        }
-    };
+        };
+    });
 
-    settings.Tooltip = new Tooltip
+    settings.SetTooltip(s =>
     {
-        Shared = true,
-        PointFormat = "&lt;span style=\"color:{series.color}\">{series.name}&lt;/span>: &lt;b>{point.percentage:.1f}%&lt;/b> ({point.y:,.0f} millions)&lt;br />"
-    };
+        s.Shared = true;
+        s.PointFormat = "&lt;span style=\"color:{series.color}\">{series.name}&lt;/span>: &lt;b>{point.percentage:.1f}%&lt;/b> ({point.y:,.0f} millions)&lt;br />"
+    });
 
-    settings.PlotOptions = new PlotOptions
+    settings.SetPlotOptions(s =>
     {
-        Area = new PlotOptionsArea
+        s.Area = new PlotOptionsArea
         {
             Stacking = Stackings.Percent,
             LineColor = Color.FromArgb(100, 255, 255, 255).ToHexString(),
@@ -157,51 +142,48 @@
                 LineWidth = 1,
                 LineColor = Color.FromArgb(100, 255, 255, 255).ToHexString()
             }
-        }
-    };
+        };
+    });
 
-    settings.Series = new[]
+    settings.AddSeries(s =>
     {
-        new Series
+        s.Name = "Asia";
+        s.Data = new Data(new object[]
         {
-            Name = "Asia",
-            Data = new Data(new object[]
-            {
                 502,635,809,947,1402,3634,5268
-            })
-        },
-        new Series
+        });
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "Africa";
+        s.Data = new Data(new object[]
         {
-            Name = "Africa",
-            Data = new Data(new object[]
-            {
                 106,107,111,133,221,767,1766
-            })
-        },
-        new Series
+        });
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "Europe";
+        s.Data = new Data(new object[]
         {
-            Name = "Europe",
-            Data = new Data(new object[]
-            {
                 163,203,276,408,547,729,628
-            })
-        },
-        new Series
+        });
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "America";
+        s.Data = new Data(new object[]
         {
-            Name = "America",
-            Data = new Data(new object[]
-            {
                 18,31,54,156,339,818,1201
-            })
-        },
-        new Series
+        });
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "Oceania";
+        s.Data = new Data(new object[]
         {
-            Name = "Oceania",
-            Data = new Data(new object[]
-            {
                 2,2,2,6,13,30,46
-            })
-        }
-    };
+        });
+    });
 }).Render()
 }
