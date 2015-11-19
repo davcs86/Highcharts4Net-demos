@@ -5,73 +5,73 @@
 @using Highcharts4Net.Library.Options
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "AreaChart with missing points";
-    var ranges = new object[] {
-        new object[]{1246406400000, 14.3, 27.7},
-        new object[]{1246492800000, 14.5, 27.8},
-        new object[]{1246579200000, 15.5, 29.6},
-        new object[]{1246665600000, 16.7, 30.7},
-        new object[]{1246752000000, 16.5, 25.0},
-        new object[]{1246838400000, 17.8, 25.7},
-        new object[]{1246924800000, 13.5, 24.8},
-        new object[]{1247011200000, 10.5, 21.4},
-        new object[]{1247097600000, 9.2, 23.8},
-        new object[]{1247184000000, 11.6, 21.8},
-        new object[]{1247270400000, 10.7, 23.7},
-        new object[]{1247356800000, 11.0, 23.3},
-        new object[]{1247443200000, 11.6, 23.7},
-        new object[]{1247529600000, 11.8, 20.7},
-        new object[]{1247616000000, 12.6, 22.4},
-        new object[]{1247702400000, 13.6, 19.6},
-        new object[]{1247788800000, 11.4, 22.6},
-        new object[]{1247875200000, 13.2, 25.0},
-        new object[]{1247961600000, 14.2, 21.6},
-        new object[]{1248048000000, 13.1, 17.1},
-        new object[]{1248134400000, 12.2, 15.5},
-        new object[]{1248220800000, 12.0, 20.8},
-        new object[]{1248307200000, 12.0, 17.1},
-        new object[]{1248393600000, 12.7, 18.3},
-        new object[]{1248480000000, 12.4, 19.4},
-        new object[]{1248566400000, 12.6, 19.9},
-        new object[]{1248652800000, 11.9, 20.2},
-        new object[]{1248739200000, 11.0, 19.3},
-        new object[]{1248825600000, 10.8, 17.8},
-        new object[]{1248912000000, 11.8, 18.5},
-        new object[]{1248998400000, 10.8, 16.1}
+    ViewBag.Title = "Area charts » Area range with line";
+    var ranges = new NumberOrDateTime?[][] {
+        new NumberOrDateTime?[]{1246406400000, 14.3, 27.7},
+        new NumberOrDateTime?[]{1246492800000, 14.5, 27.8},
+        new NumberOrDateTime?[]{1246579200000, 15.5, 29.6},
+        new NumberOrDateTime?[]{1246665600000, 16.7, 30.7},
+        new NumberOrDateTime?[]{1246752000000, 16.5, 25.0},
+        new NumberOrDateTime?[]{1246838400000, 17.8, 25.7},
+        new NumberOrDateTime?[]{1246924800000, 13.5, 24.8},
+        new NumberOrDateTime?[]{1247011200000, 10.5, 21.4},
+        new NumberOrDateTime?[]{1247097600000, 9.2, 23.8},
+        new NumberOrDateTime?[]{1247184000000, 11.6, 21.8},
+        new NumberOrDateTime?[]{1247270400000, 10.7, 23.7},
+        new NumberOrDateTime?[]{1247356800000, 11.0, 23.3},
+        new NumberOrDateTime?[]{1247443200000, 11.6, 23.7},
+        new NumberOrDateTime?[]{1247529600000, 11.8, 20.7},
+        new NumberOrDateTime?[]{1247616000000, 12.6, 22.4},
+        new NumberOrDateTime?[]{1247702400000, 13.6, 19.6},
+        new NumberOrDateTime?[]{1247788800000, 11.4, 22.6},
+        new NumberOrDateTime?[]{1247875200000, 13.2, 25.0},
+        new NumberOrDateTime?[]{1247961600000, 14.2, 21.6},
+        new NumberOrDateTime?[]{1248048000000, 13.1, 17.1},
+        new NumberOrDateTime?[]{1248134400000, 12.2, 15.5},
+        new NumberOrDateTime?[]{1248220800000, 12.0, 20.8},
+        new NumberOrDateTime?[]{1248307200000, 12.0, 17.1},
+        new NumberOrDateTime?[]{1248393600000, 12.7, 18.3},
+        new NumberOrDateTime?[]{1248480000000, 12.4, 19.4},
+        new NumberOrDateTime?[]{1248566400000, 12.6, 19.9},
+        new NumberOrDateTime?[]{1248652800000, 11.9, 20.2},
+        new NumberOrDateTime?[]{1248739200000, 11.0, 19.3},
+        new NumberOrDateTime?[]{1248825600000, 10.8, 17.8},
+        new NumberOrDateTime?[]{1248912000000, 11.8, 18.5},
+        new NumberOrDateTime?[]{1248998400000, 10.8, 16.1}
     };
-    var averages = new object[]
+    var averages = new NumberOrDateTime?[][]
     {
-        new object[] {1246406400000, 21.5},
-        new object[] {1246492800000, 22.1},
-        new object[] {1246579200000, 23},
-        new object[] {1246665600000, 23.8},
-        new object[] {1246752000000, 21.4},
-        new object[] {1246838400000, 21.3},
-        new object[] {1246924800000, 18.3},
-        new object[] {1247011200000, 15.4},
-        new object[] {1247097600000, 16.4},
-        new object[] {1247184000000, 17.7},
-        new object[] {1247270400000, 17.5},
-        new object[] {1247356800000, 17.6},
-        new object[] {1247443200000, 17.7},
-        new object[] {1247529600000, 16.8},
-        new object[] {1247616000000, 17.7},
-        new object[] {1247702400000, 16.3},
-        new object[] {1247788800000, 17.8},
-        new object[] {1247875200000, 18.1},
-        new object[] {1247961600000, 17.2},
-        new object[] {1248048000000, 14.4},
-        new object[] {1248134400000, 13.7},
-        new object[] {1248220800000, 15.7},
-        new object[] {1248307200000, 14.6},
-        new object[] {1248393600000, 15.3},
-        new object[] {1248480000000, 15.3},
-        new object[] {1248566400000, 15.8},
-        new object[] {1248652800000, 15.2},
-        new object[] {1248739200000, 14.8},
-        new object[] {1248825600000, 14.4},
-        new object[] {1248912000000, 15},
-        new object[] {1248998400000, 13.6}
+        new NumberOrDateTime?[] {1246406400000, 21.5},
+        new NumberOrDateTime?[] {1246492800000, 22.1},
+        new NumberOrDateTime?[] {1246579200000, 23},
+        new NumberOrDateTime?[] {1246665600000, 23.8},
+        new NumberOrDateTime?[] {1246752000000, 21.4},
+        new NumberOrDateTime?[] {1246838400000, 21.3},
+        new NumberOrDateTime?[] {1246924800000, 18.3},
+        new NumberOrDateTime?[] {1247011200000, 15.4},
+        new NumberOrDateTime?[] {1247097600000, 16.4},
+        new NumberOrDateTime?[] {1247184000000, 17.7},
+        new NumberOrDateTime?[] {1247270400000, 17.5},
+        new NumberOrDateTime?[] {1247356800000, 17.6},
+        new NumberOrDateTime?[] {1247443200000, 17.7},
+        new NumberOrDateTime?[] {1247529600000, 16.8},
+        new NumberOrDateTime?[] {1247616000000, 17.7},
+        new NumberOrDateTime?[] {1247702400000, 16.3},
+        new NumberOrDateTime?[] {1247788800000, 17.8},
+        new NumberOrDateTime?[] {1247875200000, 18.1},
+        new NumberOrDateTime?[] {1247961600000, 17.2},
+        new NumberOrDateTime?[] {1248048000000, 14.4},
+        new NumberOrDateTime?[] {1248134400000, 13.7},
+        new NumberOrDateTime?[] {1248220800000, 15.7},
+        new NumberOrDateTime?[] {1248307200000, 14.6},
+        new NumberOrDateTime?[] {1248393600000, 15.3},
+        new NumberOrDateTime?[] {1248480000000, 15.3},
+        new NumberOrDateTime?[] {1248566400000, 15.8},
+        new NumberOrDateTime?[] {1248652800000, 15.2},
+        new NumberOrDateTime?[] {1248739200000, 14.8},
+        new NumberOrDateTime?[] {1248825600000, 14.4},
+        new NumberOrDateTime?[] {1248912000000, 15},
+        new NumberOrDateTime?[] {1248998400000, 13.6}
     };
 }
 
@@ -99,7 +99,7 @@
         {
             FillColor = new ColorOrGradient(Color.White),
             LineWidth = 2,
-            LineColor = new ColorOrGradient("Highcharts.getOptions().colors[0]", false)
+            LineColor = new ColorOrGradient("Highcharts.getOptions().colors[0]", false) // false to avoid quotes in the javascript code.
         };
     });
 
@@ -109,7 +109,7 @@
         s.Data = new Data(ranges);
         s.LineWidth = 0;
         s.LinkedTo = ":previous";
-        s.Color = new ColorOrGradient("Highcharts.getOptions().colors[0]", false);
+        s.Color = new ColorOrGradient("Highcharts.getOptions().colors[0]", false); // false to avoid quotes in the javascript code.
         s.FillOpacity = 0.3;
         s.ZIndex = 0;
     });
@@ -117,91 +117,112 @@
 }).Render()
 
 @section source_code{
-@@Html.Highcharts4Net().AreasplineChart(settings =>
+var ranges = new NumberOrDateTime?[][] {
+    new NumberOrDateTime?[]{1246406400000, 14.3, 27.7},
+    new NumberOrDateTime?[]{1246492800000, 14.5, 27.8},
+    new NumberOrDateTime?[]{1246579200000, 15.5, 29.6},
+    new NumberOrDateTime?[]{1246665600000, 16.7, 30.7},
+    new NumberOrDateTime?[]{1246752000000, 16.5, 25.0},
+    new NumberOrDateTime?[]{1246838400000, 17.8, 25.7},
+    new NumberOrDateTime?[]{1246924800000, 13.5, 24.8},
+    new NumberOrDateTime?[]{1247011200000, 10.5, 21.4},
+    new NumberOrDateTime?[]{1247097600000, 9.2, 23.8},
+    new NumberOrDateTime?[]{1247184000000, 11.6, 21.8},
+    new NumberOrDateTime?[]{1247270400000, 10.7, 23.7},
+    new NumberOrDateTime?[]{1247356800000, 11.0, 23.3},
+    new NumberOrDateTime?[]{1247443200000, 11.6, 23.7},
+    new NumberOrDateTime?[]{1247529600000, 11.8, 20.7},
+    new NumberOrDateTime?[]{1247616000000, 12.6, 22.4},
+    new NumberOrDateTime?[]{1247702400000, 13.6, 19.6},
+    new NumberOrDateTime?[]{1247788800000, 11.4, 22.6},
+    new NumberOrDateTime?[]{1247875200000, 13.2, 25.0},
+    new NumberOrDateTime?[]{1247961600000, 14.2, 21.6},
+    new NumberOrDateTime?[]{1248048000000, 13.1, 17.1},
+    new NumberOrDateTime?[]{1248134400000, 12.2, 15.5},
+    new NumberOrDateTime?[]{1248220800000, 12.0, 20.8},
+    new NumberOrDateTime?[]{1248307200000, 12.0, 17.1},
+    new NumberOrDateTime?[]{1248393600000, 12.7, 18.3},
+    new NumberOrDateTime?[]{1248480000000, 12.4, 19.4},
+    new NumberOrDateTime?[]{1248566400000, 12.6, 19.9},
+    new NumberOrDateTime?[]{1248652800000, 11.9, 20.2},
+    new NumberOrDateTime?[]{1248739200000, 11.0, 19.3},
+    new NumberOrDateTime?[]{1248825600000, 10.8, 17.8},
+    new NumberOrDateTime?[]{1248912000000, 11.8, 18.5},
+    new NumberOrDateTime?[]{1248998400000, 10.8, 16.1}
+};
+var averages = new NumberOrDateTime?[][]
 {
-    settings.Title = new Title
-    {
-        Text = "Average fruit consumption during one week"
-    };
+    new NumberOrDateTime?[] {1246406400000, 21.5},
+    new NumberOrDateTime?[] {1246492800000, 22.1},
+    new NumberOrDateTime?[] {1246579200000, 23},
+    new NumberOrDateTime?[] {1246665600000, 23.8},
+    new NumberOrDateTime?[] {1246752000000, 21.4},
+    new NumberOrDateTime?[] {1246838400000, 21.3},
+    new NumberOrDateTime?[] {1246924800000, 18.3},
+    new NumberOrDateTime?[] {1247011200000, 15.4},
+    new NumberOrDateTime?[] {1247097600000, 16.4},
+    new NumberOrDateTime?[] {1247184000000, 17.7},
+    new NumberOrDateTime?[] {1247270400000, 17.5},
+    new NumberOrDateTime?[] {1247356800000, 17.6},
+    new NumberOrDateTime?[] {1247443200000, 17.7},
+    new NumberOrDateTime?[] {1247529600000, 16.8},
+    new NumberOrDateTime?[] {1247616000000, 17.7},
+    new NumberOrDateTime?[] {1247702400000, 16.3},
+    new NumberOrDateTime?[] {1247788800000, 17.8},
+    new NumberOrDateTime?[] {1247875200000, 18.1},
+    new NumberOrDateTime?[] {1247961600000, 17.2},
+    new NumberOrDateTime?[] {1248048000000, 14.4},
+    new NumberOrDateTime?[] {1248134400000, 13.7},
+    new NumberOrDateTime?[] {1248220800000, 15.7},
+    new NumberOrDateTime?[] {1248307200000, 14.6},
+    new NumberOrDateTime?[] {1248393600000, 15.3},
+    new NumberOrDateTime?[] {1248480000000, 15.3},
+    new NumberOrDateTime?[] {1248566400000, 15.8},
+    new NumberOrDateTime?[] {1248652800000, 15.2},
+    new NumberOrDateTime?[] {1248739200000, 14.8},
+    new NumberOrDateTime?[] {1248825600000, 14.4},
+    new NumberOrDateTime?[] {1248912000000, 15},
+    new NumberOrDateTime?[] {1248998400000, 13.6}
+};
 
-    settings.Legend = new Legend
-    {
-        Layout = Layouts.Vertical,
-        Align = HorizontalAligns.Left,
-        VerticalAlign = VerticalAligns.Top,
-        X = 150,
-        Y = 100,
-        Floating = true,
-        BorderWidth= 1,
-        BackgroundColor=new BackColorOrGradient("(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'")
-    };
+@@Html.Highcharts4Net().MultiTypeChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "July temperatures"; });
 
-    settings.XAxis = new XAxis
-    {
-        Categories = new[]
-        {
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-        },
-        PlotBands = new XAxisPlotBands[]
-        {
-            new XAxisPlotBands
-            {
-                From = 4.5,
-                To=6.5,
-                Color = Color.FromArgb(20,68,170,213).ToRGBAString()
-            }
-        }
-    };
-    settings.YAxis = new YAxis
-    {
-        Title = new YAxisTitle
-        {
-            Text = "Fruit units"
-        }
-    };
-    settings.Tooltip = new Tooltip
-    {
-        Shared = true,
-        ValueSuffix = " units"
-    };
+    settings.AddXAxis(s => { s.Type = AxisTypes.Datetime; });
 
-    settings.Credits = new Credits
-    {
-        Enabled = false
-    };
+    settings.AddYAxis(s => { s.Title = new YAxisTitle { Enabled = false }; });
 
-    settings.PlotOptions = new PlotOptions
+    settings.SetTooltip(s =>
     {
-        Areaspline = new PlotOptionsAreaspline
-        {
-            FillOpacity = 0.5
-        }
-    };
+        s.Crosshairs = new Crosshairs(true);
+        s.Shared = true;
+        s.ValueSuffix = " °C";
+    });
 
-    settings.Series = new[]
+    settings.AddSeriesLine(s =>
     {
-        new Series
+        s.Name = "Temperatures";
+        s.Data = new Data(averages);
+        s.ZIndex = 1;
+        s.Marker = new PlotOptionsLineMarker
         {
-            Name = "John",
-            Data = new Data(new object[]
-            {
-                3, 4, 3, 5, 4, 10, 12
-            })
-        },
-        new Series
-        {
-            Name = "Jane",
-            Data = new Data(new object[]
-            {
-                1, 3, 4, 3, 3, 5, 4
-            })
-        }
-    };
+            FillColor = new ColorOrGradient(Color.White),
+            LineWidth = 2,
+            LineColor = new ColorOrGradient("Highcharts.getOptions().colors[0]", false) // false to avoid quotes in the javascript code.
+        };
+    });
+
+    settings.AddSeriesArearange(s =>
+    {
+        s.Name = "Range";
+        s.Data = new Data(ranges);
+        s.LineWidth = 0;
+        s.LinkedTo = ":previous";
+        s.Color = new ColorOrGradient("Highcharts.getOptions().colors[0]", false); // false to avoid quotes in the javascript code.
+        s.FillOpacity = 0.3;
+        s.ZIndex = 0;
+    });
+
 }).Render()
 }

@@ -4,181 +4,159 @@
 @using Highcharts4Net.Library.Options
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "AreaChart with missing points";
+    ViewBag.Title = "Area charts » Area with missing points";
 }
 
 @Html.Highcharts4Net().AreaChart(settings =>
 {
-    settings.Chart.SpacingBottom = 30;
-    settings.Title = new Title
-    {
-        Text = "Fruit consumption *"
-    };
+    settings.SetChart(s => s.SpacingBottom = 30);
 
-    settings.Subtitle = new Subtitle
-    {
-        Text= "* Jane's banana consumption is unknown",
-        Floating = true,
-        Align = HorizontalAligns.Right,
-        VerticalAlign = VerticalAligns.Bottom,
-        Y= 15
-    };
+    settings.SetTitle(s => s.Text = "Fruit consumption *");
 
-    settings.Legend = new Legend
+    settings.SetSubtitle(s =>
     {
-        Layout = Layouts.Vertical,
-        Align = HorizontalAligns.Left,
-        VerticalAlign = VerticalAligns.Top,
-        X = 150,
-        Y = 100,
-        Floating = true,
-        BorderWidth= 1,
-        BackgroundColor=new BackColorOrGradient("(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'")
-    };
+        s.Text = "* Jane's banana consumption is unknown";
+        s.Floating = true;
+        s.Align = HorizontalAligns.Right;
+        s.VerticalAlign = VerticalAligns.Bottom;
+        s.Y = 15;
+    });
 
-    settings.XAxis = new XAxis
+    settings.SetLegend(s =>
     {
-        Categories = new[]
+        s.Layout = Layouts.Vertical;
+        s.Align = HorizontalAligns.Left;
+        s.VerticalAlign = VerticalAligns.Top;
+        s.X = 150;
+        s.Y = 100;
+        s.Floating = true;
+        s.BorderWidth = 1;
+        s.BackgroundColor = new ColorOrGradient("(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'", false); // false to avoid quotes in the javascript code.
+    });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[]
         {
             "Apples", "Pears", "Oranges", "Bananas", "Grapes", "Plums", "Strawberries", "Raspberries"
-        }
-    };
-    settings.YAxis = new YAxis
+        };
+    });
+    settings.AddYAxis(s =>
     {
-        Title = new YAxisTitle
+        s.Title = new YAxisTitle
         {
             Text = "Y-Axis"
-        },
-        Labels = new YAxisLabels
+        };
+        s.Labels = new YAxisLabels
         {
             Formatter = @"function () { return this.value; }"
-        }
-    };
+        };
+    });
 
-    settings.Tooltip = new Tooltip
-    {
-        Formatter = @"function () { return '<b>' + this.series.name + '</b><br/>' + this.x + ': ' + this.y; }"
-    };
+    settings.SetTooltip(s => s.Formatter = @"function () { return '<b>' + this.series.name + '</b><br/>' + this.x + ': ' + this.y; }");
 
-    settings.PlotOptions = new PlotOptions
+    settings.SetPlotOptions(s =>
     {
-        Area = new PlotOptionsArea
+        s.Area = new PlotOptionsArea
         {
             FillOpacity = 0.5
-        }
-    };
+        };
+    });
 
-    settings.Credits = new Credits
-    {
-        Enabled = false
-    };
+    settings.SetCredits(s => s.Enabled = false);
 
-    settings.Series = new[]
+    settings.AddSeries(s =>
     {
-        new Series
+        s.Name = "John";
+        s.Data = new Data(new NumberOrDateTime?[]
         {
-            Name = "John",
-            Data = new Data(new object[]
-            {
-                0, 1, 4, 4, 5, 2, 3, 7
-            })
-        },
-        new Series
+            0, 1, 4, 4, 5, 2, 3, 7
+        });
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new NumberOrDateTime?[]
         {
-            Name = "Jane",
-            Data = new Data(new object[]
-            {
-                1, 0, 3, null, 3, 1, 2, 1
-            })
-        }
-    };
+            1, 0, 3, null, 3, 1, 2, 1
+        });
+    });
 }).Render()
 
 @section source_code{
 @@Html.Highcharts4Net().AreaChart(settings =>
 {
-    settings.Chart.SpacingBottom = 30;
-    settings.Title = new Title
-    {
-        Text = "Fruit consumption *"
-    };
+    settings.SetChart(s => s.SpacingBottom = 30);
 
-    settings.Subtitle = new Subtitle
-    {
-        Text = "* Jane's banana consumption is unknown",
-        Floating = true,
-        Align = HorizontalAligns.Right,
-        VerticalAlign = VerticalAligns.Bottom,
-        Y = 15
-    };
+    settings.SetTitle(s => s.Text = "Fruit consumption *");
 
-    settings.Legend = new Legend
+    settings.SetSubtitle(s =>
     {
-        Layout = Layouts.Vertical,
-        Align = HorizontalAligns.Left,
-        VerticalAlign = VerticalAligns.Top,
-        X = 150,
-        Y = 100,
-        Floating = true,
-        BorderWidth = 1,
-        BackgroundColor = new BackColorOrGradient("(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'")
-    };
+        s.Text = "* Jane's banana consumption is unknown";
+        s.Floating = true;
+        s.Align = HorizontalAligns.Right;
+        s.VerticalAlign = VerticalAligns.Bottom;
+        s.Y = 15;
+    });
 
-    settings.XAxis = new XAxis
+    settings.SetLegend(s =>
     {
-        Categories = new[]
+        s.Layout = Layouts.Vertical;
+        s.Align = HorizontalAligns.Left;
+        s.VerticalAlign = VerticalAligns.Top;
+        s.X = 150;
+        s.Y = 100;
+        s.Floating = true;
+        s.BorderWidth = 1;
+        s.BackgroundColor = new ColorOrGradient("(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'", false); // false to avoid quotes in the javascript code.
+    });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[]
         {
             "Apples", "Pears", "Oranges", "Bananas", "Grapes", "Plums", "Strawberries", "Raspberries"
-        }
-    };
-    settings.YAxis = new YAxis
+        };
+    });
+    settings.AddYAxis(s =>
     {
-        Title = new YAxisTitle
+        s.Title = new YAxisTitle
         {
             Text = "Y-Axis"
-        },
-        Labels = new YAxisLabels
+        };
+        s.Labels = new YAxisLabels
         {
             Formatter = @@"function () { return this.value; }"
-        }
-    };
+        };
+    });
 
-    settings.Tooltip = new Tooltip
-    {
-        Formatter = @@"function () { return '&lt;b>' + this.series.name + '&lt;/b>&lt;br/>' + this.x + ': ' + this.y; }"
-    };
+    settings.SetTooltip(s => s.Formatter = @@"function () { return '&lt;b>' + this.series.name + '&lt;/b>&lt;br />' + this.x + ': ' + this.y; }");
 
-    settings.PlotOptions = new PlotOptions
+    settings.SetPlotOptions(s =>
     {
-        Area = new PlotOptionsArea
+        s.Area = new PlotOptionsArea
         {
             FillOpacity = 0.5
-        }
-    };
+        };
+    });
 
-    settings.Credits = new Credits
-    {
-        Enabled = false
-    };
+    settings.SetCredits(s => s.Enabled = false);
 
-    settings.Series = new[]
+    settings.AddSeries(s =>
     {
-        new Series
+        s.Name = "John";
+        s.Data = new Data(new NumberOrDateTime?[]
         {
-            Name = "John",
-            Data = new Data(new object[]
-            {
-                0, 1, 4, 4, 5, 2, 3, 7
-            })
-        },
-        new Series
+            0, 1, 4, 4, 5, 2, 3, 7
+        });
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new NumberOrDateTime?[]
         {
-            Name = "Jane",
-            Data = new Data(new object[]
-            {
-                1, 0, 3, null, 3, 1, 2, 1
-            })
-        }
-    };
+            1, 0, 3, null, 3, 1, 2, 1
+        });
+    });
 }).Render()
 }

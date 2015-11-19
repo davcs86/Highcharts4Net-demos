@@ -5,7 +5,7 @@
 @using Highcharts4Net.Library.Options
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Percentage AreaChart";
+    ViewBag.Title = "Area charts » Percentage area";
 }
 
 @Html.Highcharts4Net().AreaChart(settings =>
@@ -58,7 +58,7 @@
     settings.AddSeries(s =>
     {
         s.Name = "Asia";
-        s.Data = new Data(new object[]
+        s.Data = new Data(new NumberOrDateTime?[]
         {
                 502,635,809,947,1402,3634,5268
         });
@@ -66,7 +66,7 @@
     settings.AddSeries(s =>
     {
         s.Name = "Africa";
-        s.Data = new Data(new object[]
+        s.Data = new Data(new NumberOrDateTime?[]
         {
                 106,107,111,133,221,767,1766
         });
@@ -74,7 +74,7 @@
     settings.AddSeries(s =>
     {
         s.Name = "Europe";
-        s.Data = new Data(new object[]
+        s.Data = new Data(new NumberOrDateTime?[]
         {
                 163,203,276,408,547,729,628
         });
@@ -82,7 +82,7 @@
     settings.AddSeries(s =>
     {
         s.Name = "America";
-        s.Data = new Data(new object[]
+        s.Data = new Data(new NumberOrDateTime?[]
         {
                 18,31,54,156,339,818,1201
         });
@@ -90,7 +90,7 @@
     settings.AddSeries(s =>
     {
         s.Name = "Oceania";
-        s.Data = new Data(new object[]
+        s.Data = new Data(new NumberOrDateTime?[]
         {
                 2,2,2,6,13,30,46
         });
@@ -148,7 +148,7 @@
     settings.AddSeries(s =>
     {
         s.Name = "Asia";
-        s.Data = new Data(new object[]
+        s.Data = new Data(new NumberOrDateTime?[]
         {
                 502,635,809,947,1402,3634,5268
         });
@@ -156,7 +156,7 @@
     settings.AddSeries(s =>
     {
         s.Name = "Africa";
-        s.Data = new Data(new object[]
+        s.Data = new Data(new NumberOrDateTime?[]
         {
                 106,107,111,133,221,767,1766
         });
@@ -164,7 +164,7 @@
     settings.AddSeries(s =>
     {
         s.Name = "Europe";
-        s.Data = new Data(new object[]
+        s.Data = new Data(new NumberOrDateTime?[]
         {
                 163,203,276,408,547,729,628
         });
@@ -172,7 +172,7 @@
     settings.AddSeries(s =>
     {
         s.Name = "America";
-        s.Data = new Data(new object[]
+        s.Data = new Data(new NumberOrDateTime?[]
         {
                 18,31,54,156,339,818,1201
         });
@@ -180,7 +180,7 @@
     settings.AddSeries(s =>
     {
         s.Name = "Oceania";
-        s.Data = new Data(new object[]
+        s.Data = new Data(new NumberOrDateTime?[]
         {
                 2,2,2,6,13,30,46
         });

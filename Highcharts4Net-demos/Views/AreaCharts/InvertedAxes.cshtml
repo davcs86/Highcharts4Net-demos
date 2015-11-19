@@ -4,42 +4,40 @@
 @using Highcharts4Net.Library.Options
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "AreaChart with missing points";
+    ViewBag.Title = "Area charts » Inverted axes";
 }
 
 @Html.Highcharts4Net().AreaChart(settings =>
 {
-    settings.Chart.Inverted = true;
-    settings.Title = new Title
-    {
-        Text = "Average fruit consumption during one week"
-    };
+    settings.SetChart(s=>s.Inverted = true);
 
-    settings.Subtitle = new Subtitle
+    settings.SetTitle(s => s.Text = "Average fruit consumption during one week");
+
+    settings.SetSubtitle(s=>
     {
-        Style = new Dictionary<string, string>
+        s.Style = new CSSObject
         {
-            {"position","absolute"},
-            {"right","0px"},
-            {"bottom","10px"}
-        }
-    };
+            Position = "absolute",
+            Right = "0px",
+            Bottom = "10px"
+        };
+    });
 
-    settings.Legend = new Legend
+    settings.SetLegend(s=>
     {
-        Layout = Layouts.Vertical,
-        Align = HorizontalAligns.Right,
-        VerticalAlign = VerticalAligns.Top,
-        X = -150,
-        Y = 100,
-        Floating = true,
-        BorderWidth= 1,
-        BackgroundColor=new BackColorOrGradient("(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'")
-    };
+        s.Layout = Layouts.Vertical;
+        s.Align = HorizontalAligns.Right;
+        s.VerticalAlign = VerticalAligns.Top;
+        s.X = -150;
+        s.Y = 100;
+        s.Floating = true;
+        s.BorderWidth = 1;
+        s.BackgroundColor = new ColorOrGradient("(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'", false); // false to avoid quotes in the javascript code.
+    });
 
-    settings.XAxis = new XAxis
+    settings.AddXAxis(s=>
     {
-        Categories = new[]
+        s.Categories = new[]
         {
             "Monday",
             "Tuesday",
@@ -48,83 +46,79 @@
             "Friday",
             "Saturday",
             "Sunday"
-        }
-    };
-    settings.YAxis = new YAxis
+        };
+    });
+
+    settings.AddYAxis(s=>
     {
-        Title = new YAxisTitle
+        s.Title = new YAxisTitle
         {
             Text = "Number of units"
-        },
-        Labels = new YAxisLabels
+        };
+        s.Labels = new YAxisLabels
         {
             Formatter = @"function () { return this.value; }"
-        }
-    };
+        };
+    });
 
-    settings.PlotOptions = new PlotOptions
+    settings.SetPlotOptions(s=>
     {
-        Area = new PlotOptionsArea
+        s.Area = new PlotOptionsArea
         {
             FillOpacity = 0.5
-        }
-    };
+        };
+    });
 
-    settings.Series = new[]
+    settings.AddSeries(s =>
     {
-        new Series
+        s.Name = "John";
+        s.Data = new Data(new NumberOrDateTime?[]
         {
-            Name = "John",
-            Data = new Data(new object[]
-            {
-                3, 4, 3, 5, 4, 10, 12
-            })
-        },
-        new Series
+            3, 4, 3, 5, 4, 10, 12
+        });
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new NumberOrDateTime?[]
         {
-            Name = "Jane",
-            Data = new Data(new object[]
-            {
-                1, 3, 4, 3, 3, 5, 4
-            })
-        }
-    };
+            1, 3, 4, 3, 3, 5, 4
+        });
+    });
 }).Render()
 
 @section source_code{
 @@Html.Highcharts4Net().AreaChart(settings =>
 {
-    settings.Chart.Inverted = true;
-    settings.Title = new Title
-    {
-        Text = "Average fruit consumption during one week"
-    };
+    settings.SetChart(s=>s.Inverted = true);
 
-    settings.Subtitle = new Subtitle
+    settings.SetTitle(s => s.Text = "Average fruit consumption during one week");
+
+    settings.SetSubtitle(s=>
     {
-        Style = new Dictionary<string, string>
+        s.Style = new CSSObject
         {
-            {"position","absolute"},
-            {"right","0px"},
-            {"bottom","10px"}
-        }
-    };
+            Position = "absolute",
+            Right = "0px",
+            Bottom = "10px"
+        };
+    });
 
-    settings.Legend = new Legend
+    settings.SetLegend(s=>
     {
-        Layout = Layouts.Vertical,
-        Align = HorizontalAligns.Right,
-        VerticalAlign = VerticalAligns.Top,
-        X = -150,
-        Y = 100,
-        Floating = true,
-        BorderWidth= 1,
-        BackgroundColor=new BackColorOrGradient("(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'")
-    };
+        s.Layout = Layouts.Vertical;
+        s.Align = HorizontalAligns.Right;
+        s.VerticalAlign = VerticalAligns.Top;
+        s.X = -150;
+        s.Y = 100;
+        s.Floating = true;
+        s.BorderWidth = 1;
+        s.BackgroundColor = new ColorOrGradient("(Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'", true); // // false to avoid quotes in the javascript code.
+    });
 
-    settings.XAxis = new XAxis
+    settings.AddXAxis(s=>
     {
-        Categories = new[]
+        s.Categories = new[]
         {
             "Monday",
             "Tuesday",
@@ -133,46 +127,44 @@
             "Friday",
             "Saturday",
             "Sunday"
-        }
-    };
-    settings.YAxis = new YAxis
+        };
+    });
+
+    settings.AddYAxis(s=>
     {
-        Title = new YAxisTitle
+        s.Title = new YAxisTitle
         {
             Text = "Number of units"
-        },
-        Labels = new YAxisLabels
+        };
+        s.Labels = new YAxisLabels
         {
             Formatter = @@"function () { return this.value; }"
-        }
-    };
+        };
+    });
 
-    settings.PlotOptions = new PlotOptions
+    settings.SetPlotOptions(s=>
     {
-        Area = new PlotOptionsArea
+        s.Area = new PlotOptionsArea
         {
             FillOpacity = 0.5
-        }
-    };
+        };
+    });
 
-    settings.Series = new[]
+    settings.AddSeries(s =>
     {
-        new Series
+        s.Name = "John";
+        s.Data = new Data(new object[]
         {
-            Name = "John",
-            Data = new Data(new object[]
-            {
-                3, 4, 3, 5, 4, 10, 12
-            })
-        },
-        new Series
+            3, 4, 3, 5, 4, 10, 12
+        });
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new object[]
         {
-            Name = "Jane",
-            Data = new Data(new object[]
-            {
-                1, 3, 4, 3, 3, 5, 4
-            })
-        }
-    };
+            1, 3, 4, 3, 3, 5, 4
+        });
+    });
 }).Render()
 }
