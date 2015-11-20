@@ -1,0 +1,110 @@
+﻿@using Highcharts4Net
+@using Highcharts4Net.Library.Enums
+@using Highcharts4Net.Library.Helpers
+@using Highcharts4Net.Library.Options
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Column and bar charts » Stacked bar";
+}
+
+@Html.Highcharts4Net().BarChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "Stacked bar chart"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[] { "Apples", "Oranges", "Pears", "Grapes", "Bananas" };
+    });
+
+    settings.AddYAxis(s =>
+    {
+        s.Min= 0;
+        s.Title = new YAxisTitle {
+            Text = "Total fruit consumption"
+        };
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Bar = new PlotOptionsBar
+        {
+            Stacking = Stackings.Normal
+        };
+    });
+
+    settings.SetLegend(s =>
+    {
+        s.Reversed = true;
+    });
+    
+    settings.AddSeries(s =>
+    {
+        s.Name = "John";
+        s.Data = new Data(new NumberOrDateTime?[] { 5, 3, 4, 7, 2 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new NumberOrDateTime?[] { 2, 2, 3, 2, 1 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Joe";
+        s.Data = new Data(new NumberOrDateTime?[] { 3, 4, 4, 2, 5 });
+    });
+
+}).Render()
+
+@section source_code{
+@@Html.Highcharts4Net().BarChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "Stacked bar chart"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[] { "Apples", "Oranges", "Pears", "Grapes", "Bananas" };
+    });
+
+    settings.AddYAxis(s =>
+    {
+        s.Min= 0;
+        s.Title = new YAxisTitle {
+            Text = "Total fruit consumption"
+        };
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Bar = new PlotOptionsBar
+        {
+            Stacking = Stackings.Normal
+        };
+    });
+
+    settings.SetLegend(s =>
+    {
+        s.Reversed = true;
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "John";
+        s.Data = new Data(new NumberOrDateTime?[] { 5, 3, 4, 7, 2 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new NumberOrDateTime?[] { 2, 2, 3, 2, 1 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Joe";
+        s.Data = new Data(new NumberOrDateTime?[] { 3, 4, 4, 2, 5 });
+    });
+
+}).Render()
+}

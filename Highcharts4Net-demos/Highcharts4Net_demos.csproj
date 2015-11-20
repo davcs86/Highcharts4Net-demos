@@ -154,6 +154,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AreaChartsController.cs" />
+    <Compile Include="Controllers\ColumnAndBarChartsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LineChartsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -253,6 +254,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\LineCharts\LogarithmicAxis.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ColumnAndBarCharts\BasicBar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ColumnAndBarCharts\StackedBar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ColumnAndBarCharts\BarWithNegatives.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ColumnAndBarCharts\BasicColumn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ColumnAndBarCharts\ColumnWithNegatives.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ColumnAndBarCharts\StackedColumn.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

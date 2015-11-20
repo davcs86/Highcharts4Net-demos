@@ -1,0 +1,188 @@
+﻿@using Highcharts4Net
+@using Highcharts4Net.Library.Enums
+@using Highcharts4Net.Library.Helpers
+@using Highcharts4Net.Library.Options
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Column and bar charts » Bar with negative stack";
+}
+
+@{
+    // Age categories
+    var categories = new[]{ "0-4", "5-9", "10-14", "15-19",
+    "20-24", "25-29", "30-34", "35-39", "40-44",
+    "45-49", "50-54", "55-59", "60-64", "65-69",
+    "70-74", "75-79", "80-84", "85-89", "90-94",
+    "95-99", "100 + " };
+}
+
+@Html.Highcharts4Net().BarChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "Population pyramid for Germany, 2015"; });
+
+    settings.SetSubtitle(s => { s.Text = "Source: <a href=\"http://populationpyramid.net/germany/2015/\">Population Pyramids of the World from 1950 to 2100</a>"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = categories;
+        s.Reversed = false;
+        s.Labels = new XAxisLabels
+        {
+            Step = 1
+        };
+    });
+
+    settings.AddXAxis(s =>
+    {
+        // mirror axis on right side
+        s.Opposite = true;
+        s.Reversed = false;
+        s.Categories = categories;
+        s.LinkedTo = 0;
+        s.Labels = new XAxisLabels
+        {
+            Step = 1
+        };
+    });
+
+    settings.AddYAxis(s =>
+    {
+
+        s.Title = new YAxisTitle
+        {
+            Text = null
+        };
+        s.Labels = new YAxisLabels
+        {
+            Formatter = @"function () {
+                        return Math.abs(this.value) + '%';
+                    }"
+        };
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Bar = new PlotOptionsBar
+        {
+            Stacking = Stackings.Normal
+        };
+    });
+
+    settings.SetTooltip(s =>
+    {
+        s.Formatter = @"function () {
+                    return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' +
+                        'Population: ' + Highcharts.numberFormat(Math.abs(this.point.y), 0);
+                }";
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Male";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { -2.2, -2.2, -2.3, -2.5, -2.7, -3.1, -3.2,
+              -3.0, -3.2, -4.3, -4.4, -3.6, -3.1, -2.4,
+              -2.5, -2.3, -1.2, -0.6, -0.2, -0.0, -0.0 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Female";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { 2.1, 2.0, 2.2, 2.4, 2.6, 3.0, 3.1, 2.9,
+              3.1, 4.1, 4.3, 3.6, 3.4, 2.6, 2.9, 2.9,
+              1.8, 1.2, 0.6, 0.1, 0.0 });
+    });
+
+}).Render()
+
+@section source_code{
+@@{
+    // Age categories
+    var categories = new[]{ "0-4", "5-9", "10-14", "15-19",
+    "20-24", "25-29", "30-34", "35-39", "40-44",
+    "45-49", "50-54", "55-59", "60-64", "65-69",
+    "70-74", "75-79", "80-84", "85-89", "90-94",
+    "95-99", "100 + " };
+}
+
+@@Html.Highcharts4Net().BarChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "Population pyramid for Germany, 2015"; });
+
+    settings.SetSubtitle(s => { s.Text = "Source: &lt;a href=\"http://populationpyramid.net/germany/2015/\">Population Pyramids of the World from 1950 to 2100&lt;/a>"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = categories;
+        s.Reversed = false;
+        s.Labels = new XAxisLabels
+        {
+            Step = 1
+        };
+    });
+
+    settings.AddXAxis(s =>
+    {
+        // mirror axis on right side
+        s.Opposite = true;
+        s.Reversed = false;
+        s.Categories = categories;
+        s.LinkedTo = 0;
+        s.Labels = new XAxisLabels
+        {
+            Step = 1
+        };
+    });
+
+    settings.AddYAxis(s =>
+    {
+
+        s.Title = new YAxisTitle
+        {
+            Text = null
+        };
+        s.Labels = new YAxisLabels
+        {
+            Formatter = @@"function () {
+                        return Math.abs(this.value) + '%';
+                    }"
+        };
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Bar = new PlotOptionsBar
+        {
+            Stacking = Stackings.Normal
+        };
+    });
+
+    settings.SetTooltip(s =>
+    {
+        s.Formatter = @@"function () {
+                    return '&lt;b>' + this.series.name + ', age ' + this.point.category + '&lt;/b>&lt;br/>' +
+                        'Population: ' + Highcharts.numberFormat(Math.abs(this.point.y), 0);
+                }";
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Male";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { -2.2, -2.2, -2.3, -2.5, -2.7, -3.1, -3.2,
+              -3.0, -3.2, -4.3, -4.4, -3.6, -3.1, -2.4,
+              -2.5, -2.3, -1.2, -0.6, -0.2, -0.0, -0.0 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Female";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { 2.1, 2.0, 2.2, 2.4, 2.6, 3.0, 3.1, 2.9,
+              3.1, 4.1, 4.3, 3.6, 3.4, 2.6, 2.9, 2.9,
+              1.8, 1.2, 0.6, 0.1, 0.0 });
+    });
+
+}).Render()
+}

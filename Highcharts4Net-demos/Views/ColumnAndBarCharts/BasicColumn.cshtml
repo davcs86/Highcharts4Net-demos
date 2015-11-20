@@ -1,0 +1,176 @@
+﻿@using Highcharts4Net
+@using Highcharts4Net.Library.Enums
+@using Highcharts4Net.Library.Helpers
+@using Highcharts4Net.Library.Options
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Column and bar charts » Basic column";
+}
+
+@Html.Highcharts4Net().ColumnChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "Monthly Average Rainfall"; });
+
+    settings.SetSubtitle(s => { s.Text = "Source: WorldClimate.com"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[] {
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+        };
+        s.Crosshair = new AxisCrosshair(true);
+    });
+
+    settings.AddYAxis(s =>
+    {
+        s.Min = 0;
+        s.Title = new YAxisTitle
+        {
+            Text = "Rainfall (mm)"
+        };
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Column = new PlotOptionsColumn
+        {
+            PointPadding= 0.2,
+            BorderWidth= 0
+        };
+    });
+
+    settings.SetTooltip(s =>
+    {
+        s.HeaderFormat = "<span style=\"font-size:10px\">{point.key}</span><table>";
+        s.PointFormat = @"<tr><td style=""color:{series.color};padding:0"">{series.name}: </td>
+                        <td style=""padding:0""><b>{point.y:.1f} mm</b></td></tr>";
+        s.FooterFormat = "</table>";
+        s.Shared = true;
+        s.UseHTML = true;
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Tokyo";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { 49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "New York";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { 83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "London";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { 48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Berlin";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { 42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1 });
+    });
+
+}).Render()
+
+@section source_code{
+@@Html.Highcharts4Net().ColumnChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "Monthly Average Rainfall"; });
+
+    settings.SetSubtitle(s => { s.Text = "Source: WorldClimate.com"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[] {
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+        };
+        s.Crosshair = new AxisCrosshair(true);
+    });
+
+    settings.AddYAxis(s =>
+    {
+        s.Min = 0;
+        s.Title = new YAxisTitle
+        {
+            Text = "Rainfall (mm)"
+        };
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Column = new PlotOptionsColumn
+        {
+            PointPadding= 0.2,
+            BorderWidth= 0
+        };
+    });
+
+    settings.SetTooltip(s =>
+    {
+        s.HeaderFormat = "&lt;span style=\"font-size:10px\">{point.key}&lt;/span>&lt;table>";
+        s.PointFormat = @@"&lt;tr>&lt;td style=""color:{series.color};padding:0"">{series.name}: &lt;/td>
+                        &lt;td style=""padding:0"">&lt;b>{point.y:.1f} mm&lt;/b>&lt;/td>&lt;/tr>";
+        s.FooterFormat = "&lt;/table>";
+        s.Shared = true;
+        s.UseHTML = true;
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Tokyo";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { 49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "New York";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { 83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "London";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { 48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Berlin";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { 42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1 });
+    });
+
+}).Render()
+}

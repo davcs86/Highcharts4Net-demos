@@ -1,0 +1,70 @@
+﻿@using Highcharts4Net
+@using Highcharts4Net.Library.Helpers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Column and bar charts » Column with negative values";
+}
+
+@Html.Highcharts4Net().ColumnChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "Column chart with negative values"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[] { "Apples", "Oranges", "Pears", "Grapes", "Bananas" };
+    });
+
+    settings.SetCredits(s => { s.Enabled = false; });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "John";
+        s.Data = new Data(new NumberOrDateTime?[] { 5, 3, 4, 7, 2 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new NumberOrDateTime?[] { 2, -2, -3, 2, 1 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Joe";
+        s.Data = new Data(new NumberOrDateTime?[] { 3, 4, 4, -2, 5 });
+    });
+
+}).Render()
+
+@section source_code{
+@@Html.Highcharts4Net().BarChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "Column chart with negative values"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[] { "Apples", "Oranges", "Pears", "Grapes", "Bananas" };
+    });
+
+    settings.SetCredits(s => { s.Enabled = false; });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "John";
+        s.Data = new Data(new NumberOrDateTime?[] { 5, 3, 4, 7, 2 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new NumberOrDateTime?[] { 2, -2, -3, 2, 1 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Joe";
+        s.Data = new Data(new NumberOrDateTime?[] { 3, 4, 4, -2, 5 });
+    });
+
+}).Render()
+}

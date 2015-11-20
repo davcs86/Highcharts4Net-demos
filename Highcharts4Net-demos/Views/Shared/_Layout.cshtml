@@ -2,131 +2,154 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/styles.css")
-    
+
     @Scripts.Render("~/Scripts/jquery.js")
-    
+
     @Scripts.Render("~/Content/styles/js/bootstrap.min.js")
     @Html.Highcharts4Net().IncludeLibraryScripts(new LibraryScriptsOptions { UseCDN = true, IncludeMore = true, IncludeModuleData = true, IncludeModuleExporting = true })
 </head>
 <body>
-<div class="site-outer-wrap">
-    <div class="site-wrap">
-        <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-            <div class="header-content-wrap">
-                <div class="header-content">
-                    <div class="header-content-top">
-                        <div class="brand">
-                            <a href="http://wp.youxithemes.com/helium">
-                                <img src="@Url.Content("~/Content/styles/imgs/logo.svg")" alt="Highcharts4Net"/>
-                            </a>
-                            <div class="tagline">Asp.Net MVC helpers for Highcharts</div>
-                        </div><button class="header-toggle btn btn-ui">
-                            <span><span></span></span>
-                        </button>
+    <div class="site-outer-wrap">
+        <div class="site-wrap">
+            <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+                <div class="header-content-wrap">
+                    <div class="header-content">
+                        <div class="header-content-top">
+                            <div class="brand">
+                                <a href="http://wp.youxithemes.com/helium">
+                                    <img src="@Url.Content("~/Content/styles/imgs/logo.svg")" alt="Highcharts4Net" />
+                                </a>
+                                <div class="tagline">Asp.Net MVC helpers for Highcharts</div>
+                            </div><button class="header-toggle btn btn-ui">
+                                <span><span></span></span>
+                            </button>
+                        </div>
+                        <div class="header-content-bottom">
+                            <nav class="main-nav" itemscope itemtype="http://schema.org/SiteNavigationElement">
+                                <ul id="menu-main-menu" class="menu">
+                                    <li id="menu-item-linecharts_index" class="menu-item">
+                                        <a href="#">Line charts</a><span class="subnav-close"></span><ul class="sub-menu">
+                                            <li id="menu-item-linecharts_basic" class="menu-item">
+                                                <a href="@Url.Action("Basic", "LineCharts")">Basic line</a>
+                                            </li>
+                                            <li id="menu-item-linecharts_ajaxloadedclickablepoints" class="menu-item">
+                                                <a href="@Url.Action("AjaxLoadedClickablePoints", "LineCharts")">Ajax loaded data, clickable points</a>
+                                            </li>
+                                            <li id="menu-item-linecharts_withdatalabels" class="menu-item">
+                                                <a href="@Url.Action("WithDataLabels", "LineCharts")">With data labels</a>
+                                            </li>
+                                            <li id="menu-item-linecharts_timeseries" class="menu-item">
+                                                <a href="@Url.Action("TimeSeries", "LineCharts")">Time series, zoomable</a>
+                                            </li>
+                                            <li id="menu-item-linecharts_splineinverted" class="menu-item">
+                                                <a href="@Url.Action("SplineInverted", "LineCharts")">Spline with inverted axes</a>
+                                            </li>
+                                            <li id="menu-item-linecharts_splinewithsymbols" class="menu-item">
+                                                <a href="@Url.Action("SplineWithSymbols", "LineCharts")">Spline with symbols</a>
+                                            </li>
+                                            <li id="menu-item-linecharts_splinewithplotbands" class="menu-item">
+                                                <a href="@Url.Action("SplineWithPlotBands", "LineCharts")">Spline with plot bands</a>
+                                            </li>
+                                            <li id="menu-item-linecharts_splineirregulartime" class="menu-item">
+                                                <a href="@Url.Action("SplineIrregularTime", "LineCharts" )">Time data with irregular intervals</a>
+                                            </li>
+                                            <li id="menu-item-linecharts_logarithmicaxis" class="menu-item">
+                                                <a href="@Url.Action("LogarithmicAxis", "LineCharts" )">Logarithmic axis</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li id="menu-item-linecharts_index" class="menu-item">
+                                        <a href="#">Area charts</a><span class="subnav-close"></span><ul class="sub-menu">
+                                            <li id="menu-item-areacharts_basic" class="menu-item">
+                                                <a href="@Url.Action("Basic", "AreaCharts")">Basic area</a>
+                                            </li>
+                                            <li id="menu-item-areacharts_negative" class="menu-item">
+                                                <a href="@Url.Action("Negative", "AreaCharts")">Area with negative values</a>
+                                            </li>
+                                            <li id="menu-item-areacharts_stacked" class="menu-item">
+                                                <a href="@Url.Action("Stacked", "AreaCharts")">Stacked area</a>
+                                            </li>
+                                            <li id="menu-item-areacharts_percentage" class="menu-item">
+                                                <a href="@Url.Action("Percentage", "AreaCharts")">Percentage area</a>
+                                            </li>
+                                            <li id="menu-item-areacharts_missingpoints" class="menu-item">
+                                                <a href="@Url.Action("MissingPoints", "AreaCharts")">Area with missing points</a>
+                                            </li>
+                                            <li id="menu-item-areacharts_invertedaxes" class="menu-item">
+                                                <a href="@Url.Action("InvertedAxes", "AreaCharts")">Inverted axes</a>
+                                            </li>
+                                            <li id="menu-item-areacharts_areaspline" class="menu-item">
+                                                <a href="@Url.Action("Areaspline", "AreaCharts")">Area-spline</a>
+                                            </li>
+                                            <li id="menu-item-areacharts_arearange" class="menu-item">
+                                                <a href="@Url.Action("Arearange", "AreaCharts")">Area range</a>
+                                            </li>
+                                            <li id="menu-item-areacharts_arearangewithline" class="menu-item">
+                                                <a href="@Url.Action("ArearangeWithLine", "AreaCharts")">Area range and line</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li id="menu-item-columnandbarcharts_index" class="menu-item">
+                                        <a href="#">Column and bar charts</a><span class="subnav-close"></span><ul class="sub-menu">
+                                            <li id="menu-item-columnandbarcharts_basicbar" class="menu-item">
+                                                <a href="@Url.Action("BasicBar", "ColumnAndBarCharts")">Basic bar</a>
+                                            </li>
+                                            <li id="menu-item-columnandbarcharts_stackedbar" class="menu-item">
+                                                <a href="@Url.Action("StackedBar", "ColumnAndBarCharts")">Stacked bar</a>
+                                            </li>
+                                            <li id="menu-item-columnandbarcharts_barwithnegatives" class="menu-item">
+                                                <a href="@Url.Action("BarWithNegatives", "ColumnAndBarCharts")">Bar with negative stack</a>
+                                            </li>
+                                            <li id="menu-item-columnandbarcharts_basiccolumn" class="menu-item">
+                                                <a href="@Url.Action("BasicColumn", "ColumnAndBarCharts")">Basic column</a>
+                                            </li>
+                                            <li id="menu-item-columnandbarcharts_columnwithnegatives" class="menu-item">
+                                                <a href="@Url.Action("ColumnWithNegatives", "ColumnAndBarCharts")">Column with negative values</a>
+                                            </li>
+                                            <li id="menu-item-columnandbarcharts_stackedcolumn" class="menu-item">
+                                                <a href="@Url.Action("StackedColumn", "ColumnAndBarCharts")">Stacked column</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav><aside class="header-widgets" itemscope itemtype="http://schema.org/WPSideBar">
+                                <div id="text-1" class="widget widget_text">
+                                    <h4 class="widget-title">Repository</h4>
+                                    <div class="textwidget"><a href="https://github.com/davcs86/Highcharts4Net" target="_blank">Link</a></div>
+                                </div>
+                            </aside>
+                        </div>
                     </div>
-                    <div class="header-content-bottom">
-                        <nav class="main-nav" itemscope itemtype="http://schema.org/SiteNavigationElement">
-                            <ul id="menu-main-menu" class="menu">
-                                <li id="menu-item-linecharts_index" class="menu-item">
-                                    <a href="#">Line charts</a><span class="subnav-close"></span><ul class="sub-menu">
-                                        <li id="menu-item-linecharts_basic" class="menu-item">
-                                            <a href="@Url.Action("Basic", "LineCharts")">Basic line</a>
-                                        </li>
-                                        <li id="menu-item-linecharts_ajaxloadedclickablepoints" class="menu-item">
-                                            <a href="@Url.Action("AjaxLoadedClickablePoints", "LineCharts")">Ajax loaded data, clickable points</a>
-                                        </li>
-                                        <li id="menu-item-linecharts_withdatalabels" class="menu-item">
-                                            <a href="@Url.Action("WithDataLabels", "LineCharts")">With data labels</a>
-                                        </li>
-                                        <li id="menu-item-linecharts_timeseries" class="menu-item">
-                                            <a href="@Url.Action("TimeSeries", "LineCharts")">Time series, zoomable</a>
-                                        </li>
-                                        <li id="menu-item-linecharts_splineinverted" class="menu-item">
-                                            <a href="@Url.Action("SplineInverted", "LineCharts")">Spline with inverted axes</a>
-                                        </li>
-                                        <li id="menu-item-linecharts_splinewithsymbols" class="menu-item">
-                                            <a href="@Url.Action("SplineWithSymbols", "LineCharts")">Spline with symbols</a>
-                                        </li>
-                                        <li id="menu-item-linecharts_splinewithplotbands" class="menu-item">
-                                            <a href="@Url.Action("SplineWithPlotBands", "LineCharts")">Spline with plot bands</a>
-                                        </li>
-                                        <li id="menu-item-linecharts_splineirregulartime" class="menu-item">
-                                            <a href="@Url.Action("SplineIrregularTime", "LineCharts" )">Time data with irregular intervals</a>
-                                        </li>
-                                        <li id="menu-item-linecharts_logarithmicaxis" class="menu-item">
-                                            <a href="@Url.Action("LogarithmicAxis", "LineCharts" )">Logarithmic axis</a>
-                                        </li>
-                                    </ul>
+                </div>
+            </header>
+            <div class="content-area-wrap">
+                <div class="content-area fullwidth">
+                    <div class="content-header">
+                        <div class="content-header-affix clearfix">
+                            <h1 class="content-title"> @ViewBag.Title</h1>
+                        </div>
+                    </div>
+                    <div class="content-wrap">
+                        <div class="nav-tabs-custom">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#chart" data-toggle="tab">Chart</a>
                                 </li>
-                                <li id="menu-item-linecharts_index" class="menu-item">
-                                    <a href="#">Area charts</a><span class="subnav-close"></span><ul class="sub-menu">
-                                        <li id="menu-item-areacharts_basic" class="menu-item">
-                                            <a href="@Url.Action("Basic", "AreaCharts")">Basic area</a>
-                                        </li>
-                                        <li id="menu-item-areacharts_negative" class="menu-item">
-                                            <a href="@Url.Action("Negative", "AreaCharts")">Area with negative values</a>
-                                        </li>
-                                        <li id="menu-item-areacharts_stacked" class="menu-item">
-                                            <a href="@Url.Action("Stacked", "AreaCharts")">Stacked area</a>
-                                        </li>
-                                        <li id="menu-item-areacharts_percentage" class="menu-item">
-                                            <a href="@Url.Action("Percentage", "AreaCharts")">Percentage area</a>
-                                        </li>
-                                        <li id="menu-item-areacharts_missingpoints" class="menu-item">
-                                            <a href="@Url.Action("MissingPoints", "AreaCharts")">Area with missing points</a>
-                                        </li>
-                                        <li id="menu-item-areacharts_invertedaxes" class="menu-item">
-                                            <a href="@Url.Action("InvertedAxes", "AreaCharts")">Inverted axes</a>
-                                        </li>
-                                        <li id="menu-item-areacharts_areaspline" class="menu-item">
-                                            <a href="@Url.Action("Areaspline", "AreaCharts")">Area-spline</a>
-                                        </li>
-                                        <li id="menu-item-areacharts_arearange" class="menu-item">
-                                            <a href="@Url.Action("Arearange", "AreaCharts")">Area range</a>
-                                        </li>
-                                        <li id="menu-item-areacharts_arearangewithline" class="menu-item">
-                                            <a href="@Url.Action("ArearangeWithLine", "AreaCharts")">Area range and line</a>
-                                        </li>
-                                    </ul>
+                                <li>
+                                    <a href="#source" data-toggle="tab">Source</a>
                                 </li>
                             </ul>
-                        </nav><aside class="header-widgets" itemscope itemtype="http://schema.org/WPSideBar">
-                            <div id="text-1" class="widget widget_text">
-                                <h4 class="widget-title">Repository</h4>
-                                <div class="textwidget"><a href="https://github.com/davcs86/Highcharts4Net" target="_blank">Link</a></div>
-                            </div>
-                        </aside>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <div class="content-area-wrap">
-            <div class="content-area fullwidth">
-                <div class="content-header">
-                    <div class="content-header-affix clearfix">
-                        <h1 class="content-title"> @ViewBag.Title</h1>
-                    </div>
-                </div>
-                <div class="content-wrap">
-                    <div class="nav-tabs-custom">
-                        <ul class="nav nav-tabs">
-                            <li class="active">
-                                <a href="#chart" data-toggle="tab">Chart</a>
-                            </li>
-                            <li>
-                                <a href="#source" data-toggle="tab">Source</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content">
-                            <div class="active tab-pane" id="chart">
-                                @RenderBody()
-                            </div>
-                            <div class="tab-pane" id="source">
-                                <pre><code lang="language-markup">@RenderSection("source_code", false)</code></pre>
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="chart">
+                                    @RenderBody()
+                                </div>
+                                <div class="tab-pane" id="source">
+                                    <pre><code lang="language-markup">@RenderSection("source_code", false)</code></pre>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -134,50 +157,49 @@
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    jQuery(function ($) {
-        var current_menu = "@ViewContext.RouteData.GetRequiredString("controller").ToLower()"+"_"+"@ViewContext.RouteData.GetRequiredString("action").ToLower()";
-        $("#menu-item-" + current_menu).addClass("current-menu-item");
-        $("#menu-item-" + current_menu).parents("ul.sub-menu").first().show();
+    <script>
+        jQuery(function ($) {
+            var current_menu = "@ViewContext.RouteData.GetRequiredString("controller").ToLower()" + "_" + "@ViewContext.RouteData.GetRequiredString("action").ToLower()";
+            $("#menu-item-" + current_menu).addClass("current-menu-item");
+            $("#menu-item-" + current_menu).parents("ul.sub-menu").first().show();
 
-        $("body").on("click", ".header-toggle", function (ev) {
-            $("body").toggleClass("header-open");
-            ev.preventDefault();
+            $("body").on("click", ".header-toggle", function (ev) {
+                $("body").toggleClass("header-open");
+                ev.preventDefault();
+            });
+
+            $("body").on("click", ".toggleSidebar", function (ev) {
+                $("#sidebar").toggleClass("active");
+                $(".toggleSidebar").toggleClass("active");
+                ev.preventDefault();
+            });
+
+            $("body").on("click", "#menu-main-menu > .menu-item > a", function (ev) {
+                $(this).parent().find(".sub-menu:first").slideToggle();
+                ev.preventDefault();
+            });
+
+            $("body").on("shown.bs.tab", "a[data-toggle=\"tab\"]", function () {
+                $(window).trigger("resize"); // fix for highcharts
+            });
+
         });
+    </script>
 
-        $("body").on("click", ".toggleSidebar", function (ev) {
-            $("#sidebar").toggleClass("active");
-            $(".toggleSidebar").toggleClass("active");
-            ev.preventDefault();
-        });
-
-        $("body").on("click", "#menu-main-menu > .menu-item > a", function(ev) {
-            $(this).parent().find(".sub-menu:first").slideToggle();
-            ev.preventDefault();
-        });
-
-        $("body").on("shown.bs.tab", "a[data-toggle=\"tab\"]", function () {
-            $(window).trigger("resize"); // fix for highcharts 
-        });
-
-    });
-</script>
-    
-<script type="text/javascript">
-  WebFontConfig = {
-    google: { families: [ 'Roboto:400,300,700,500,700italic,400italic,300italic,500italic:latin,latin-ext' ] }
-  };
-  (function() {
-    var wf = document.createElement('script');
-    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-    wf.type = 'text/javascript';
-    wf.async = 'true';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(wf, s);
-  })();
-</script>
+    <script type="text/javascript">
+        WebFontConfig = {
+            google: { families: ['Roboto:400,300,700,500,700italic,400italic,300italic,500italic:latin,latin-ext'] }
+        };
+        (function () {
+            var wf = document.createElement('script');
+            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+              '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+        })();
+    </script>
 </body>
 </html>

@@ -1,0 +1,175 @@
+﻿@using Highcharts4Net
+@using Highcharts4Net.Library.Enums
+@using Highcharts4Net.Library.Helpers
+@using Highcharts4Net.Library.Options
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Column and bar charts » Basic bar";
+}
+
+@Html.Highcharts4Net().BarChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "Historic World Population by Region"; });
+
+    settings.SetSubtitle(s => { s.Text = "Source: <a href=\"https://en.wikipedia.org/wiki/World_population\">Wikipedia.org</a>"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[] { "Africa", "America", "Asia", "Europe", "Oceania" };
+        s.Title = new XAxisTitle
+        {
+            Text= null
+        };
+    });
+
+    settings.AddYAxis(s =>
+    {
+        s.Min= 0;
+        s.Title = new YAxisTitle {
+            Text = "Population (millions)",
+            Align = AxisTitleAligns.High
+        };
+        s.Labels= new YAxisLabels{
+            Overflow = "justify"
+        };
+    });
+
+    settings.SetTooltip(s =>
+    {
+        s.ValueSuffix = " millions";
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Bar = new PlotOptionsBar
+        {
+            DataLabels = new PlotOptionsBarDataLabels
+            {
+                Enabled = true
+            }
+        };
+    });
+
+    settings.SetLegend(s =>
+    {
+        s.Layout = Layouts.Vertical;
+        s.Align = HorizontalAligns.Right;
+        s.VerticalAlign = VerticalAligns.Top;
+        s.X = -40;
+        s.Y = 80;
+        s.Floating = true;
+        s.BorderWidth = 1;
+        s.BackgroundColor = new ColorOrGradient("((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF')", false); // false to avoid quotes in the javascript code.
+        s.Shadow = true;
+    });
+
+    settings.SetCredits(s => { s.Enabled = false; });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Year 1800";
+        s.Data = new Data(new NumberOrDateTime?[] { 107, 31, 635, 203, 2 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Year 1900";
+        s.Data = new Data(new NumberOrDateTime?[] { 133, 156, 947, 408, 6 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Year 2012";
+        s.Data = new Data(new NumberOrDateTime?[] { 1052, 954, 4250, 740, 38 });
+    });
+
+}).Render()
+
+@section source_code{
+@@Html.Highcharts4Net().BarChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "Historic World Population by Region"; });
+
+    settings.SetSubtitle(s => { s.Text = "Source: &lt;a href=\"https://en.wikipedia.org/wiki/World_population\">Wikipedia.org&lt;/a>"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[] { "Africa", "America", "Asia", "Europe", "Oceania" };
+        s.Title = new XAxisTitle
+        {
+            Text = null
+        };
+    });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[] { "Africa", "America", "Asia", "Europe", "Oceania" };
+        s.Title = new XAxisTitle
+        {
+            Text= null
+        };
+    });
+
+    settings.AddYAxis(s =>
+    {
+        s.Min= 0;
+        s.Title = new YAxisTitle {
+            Text = "Population (millions)",
+            Align = AxisTitleAligns.High
+        };
+        s.Labels= new YAxisLabels{
+            Overflow = "justify"
+        };
+    });
+
+    settings.SetTooltip(s =>
+    {
+        s.ValueSuffix = " millions";
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Bar = new PlotOptionsBar
+        {
+            DataLabels = new PlotOptionsBarDataLabels
+            {
+                Enabled = true
+            }
+        };
+    });
+
+    settings.SetLegend(s =>
+    {
+        s.Layout = Layouts.Vertical;
+        s.Align = HorizontalAligns.Right;
+        s.VerticalAlign = VerticalAligns.Top;
+        s.X = -40;
+        s.Y = 80;
+        s.Floating = true;
+        s.BorderWidth = 1;
+        s.BackgroundColor = new ColorOrGradient("((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF')", false); // false to avoid quotes in the javascript code.
+        s.Shadow = true;
+    });
+
+    settings.SetCredits(s => { s.Enabled = false; });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Year 1800";
+        s.Data = new Data(new NumberOrDateTime?[] { 107, 31, 635, 203, 2 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Year 1900";
+        s.Data = new Data(new NumberOrDateTime?[] { 133, 156, 947, 408, 6 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Year 2012";
+        s.Data = new Data(new NumberOrDateTime?[] { 1052, 954, 4250, 740, 38 });
+    });
+
+}).Render()
+}

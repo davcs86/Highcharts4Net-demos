@@ -1,0 +1,192 @@
+﻿@using Highcharts4Net
+@using Highcharts4Net.Library.Enums
+@using Highcharts4Net.Library.Helpers
+@using Highcharts4Net.Library.Options
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Column and bar charts » Stacked column";
+}
+
+@Html.Highcharts4Net().ColumnChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "Stacked column chart"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[] {
+            "Apples", "Oranges", "Pears", "Grapes", "Bananas"
+        };
+    });
+
+    settings.AddYAxis(s =>
+    {
+        s.Min = 0;
+        s.Title = new YAxisTitle
+        {
+            Text = "Total fruit consumption"
+        };
+        s.StackLabels = new YAxisStackLabels
+        {
+            Enabled = true,
+            Style = new CSSObject
+            {
+                FontWeight = "bold",
+                Color = new LiteralString("(Highcharts.theme && Highcharts.theme.textColor) || 'gray'", false) // false to avoid quotes in the javascript code.
+            }
+        };
+    });
+
+    settings.SetLegend(s =>
+    {
+        s.Align = HorizontalAligns.Right;
+        s.X = -30;
+        s.VerticalAlign = VerticalAligns.Top;
+        s.Y = 25;
+        s.Floating = true;
+        s.BackgroundColor = new ColorOrGradient("(Highcharts.theme && Highcharts.theme.background2) || 'white'", false); // false to avoid quotes in the javascript code.
+        s.BorderColor = new ColorOrGradient("#CCC"); // false to avoid quotes in the javascript code.
+        s.BorderWidth = 1;
+        s.Shadow = false;
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Column = new PlotOptionsColumn
+        {
+            Stacking = Stackings.Normal,
+            DataLabels = new PlotOptionsColumnDataLabels
+            {
+                Enabled = true,
+                Color = new ColorOrGradient("(Highcharts.theme && Highcharts.theme.background2) || 'white'", false), // false to avoid quotes in the javascript code.
+                Style = new CSSObject
+                {
+                    TextShadow= "0 0 3px black"
+                }
+            }
+        };
+    });
+
+    settings.SetTooltip(s =>
+    {
+        s.Formatter = @"function () {
+                return '<b>' + this.x + '</b><br/>' +
+                    this.series.name + ': ' + this.y + '<br/>' +
+                    'Total: ' + this.point.stackTotal;
+            }";
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "John";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { 5, 3, 4, 7, 2 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { 2, 2, 3, 2, 1 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Joe";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { 3, 4, 4, 2, 5 });
+    });
+
+}).Render()
+
+@section source_code{
+@@Html.Highcharts4Net().ColumnChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "Stacked column chart"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[] {
+            "Apples", "Oranges", "Pears", "Grapes", "Bananas"
+        };
+    });
+
+    settings.AddYAxis(s =>
+    {
+        s.Min = 0;
+        s.Title = new YAxisTitle
+        {
+            Text = "Total fruit consumption"
+        };
+        s.StackLabels = new YAxisStackLabels
+        {
+            Enabled = true,
+            Style = new CSSObject
+            {
+                FontWeight = "bold",
+                Color = new LiteralString("(Highcharts.theme && Highcharts.theme.textColor) || 'gray'", false) // false to avoid quotes in the javascript code.
+            }
+        };
+    });
+
+    settings.SetLegend(s =>
+    {
+        s.Align = HorizontalAligns.Right;
+        s.X = -30;
+        s.VerticalAlign = VerticalAligns.Top;
+        s.Y = 25;
+        s.Floating = true;
+        s.BackgroundColor = new ColorOrGradient("(Highcharts.theme && Highcharts.theme.background2) || 'white'", false); // false to avoid quotes in the javascript code.
+        s.BorderColor = new ColorOrGradient("#CCC"); // false to avoid quotes in the javascript code.
+        s.BorderWidth = 1;
+        s.Shadow = false;
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Column = new PlotOptionsColumn
+        {
+            Stacking = Stackings.Normal,
+            DataLabels = new PlotOptionsColumnDataLabels
+            {
+                Enabled = true,
+                Color = new ColorOrGradient("(Highcharts.theme && Highcharts.theme.background2) || 'white'", false), // false to avoid quotes in the javascript code.
+                Style = new CSSObject
+                {
+                    TextShadow= "0 0 3px black"
+                }
+            }
+        };
+    });
+
+    settings.SetTooltip(s =>
+    {
+        s.Formatter = @@"function () {
+                return '&lt;b>' + this.x + '&lt;/b>&lt;br />' +
+                    this.series.name + ': ' + this.y + '&lt;br />' +
+                    'Total: ' + this.point.stackTotal;
+            }";
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "John";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { 5, 3, 4, 7, 2 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { 2, 2, 3, 2, 1 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Joe";
+        s.Data = new Data(new NumberOrDateTime?[]
+            { 3, 4, 4, 2, 5 });
+    });
+
+}).Render()
+}
