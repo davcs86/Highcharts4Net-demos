@@ -43,5 +43,20 @@ namespace Highcharts4Net_demos.Controllers
         {
             return View();
         }
+
+        public ActionResult StackedGroupedColumn()
+        {
+            return View();
+        }
+
+        public ActionResult StackedPercentageColumn()
+        {
+            return View();
+        }
+
+        public ActionResult RotatedLabelsColumn()
+        {
+            return View();
+        }
     }
 }

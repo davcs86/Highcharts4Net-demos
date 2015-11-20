@@ -1,5 +1,4 @@
 ﻿@using Highcharts4Net
-@using Highcharts4Net.Library.Enums
 @using Highcharts4Net.Library.Helpers
 @using Highcharts4Net.Library.Options
 @{
@@ -7,80 +6,81 @@
     ViewBag.Title = "Line charts » Spline with inverted axes";
 }
 
-@Html.Highcharts4Net().SplineChart((Action<Highcharts4Net.Library.SplineChartSettings>)(settings =>
-            {
-                settings.Name = "SplineInverted";
 
-                settings.SetChart(s => { s.Inverted = true; });
+@Html.Highcharts4Net().SplineChart(settings =>
+{
+    settings.Name = "SplineInverted";
 
-                settings.SetTitle(s => { s.Text = "Atmosphere Temperature by Altitude"; });
+    settings.SetChart(s => { s.Inverted = true; });
 
-                settings.SetSubtitle(s => { s.Text = "According to the Standard Atmosphere Model"; });
+    settings.SetTitle(s => { s.Text = "Atmosphere Temperature by Altitude"; });
 
-                settings.AddXAxis((XAxisSettings)(s =>
-                {
-                    s.Reversed = false;
-                    s.Title = new XAxisTitle
-                    {
-                        Enabled = true,
-                        Text = "Altitude",
-                    };
-                    s.Labels = new XAxisLabels
-                    {
-                        Formatter = @"function() {
+    settings.SetSubtitle(s => { s.Text = "According to the Standard Atmosphere Model"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Reversed = false;
+        s.Title = new XAxisTitle
+        {
+            Enabled = true,
+            Text = "Altitude"
+        };
+        s.Labels = new XAxisLabels
+        {
+            Formatter = @"function() {
                                 return this.value + 'km';
                                 }"
-                    };
-                    s.MaxPadding = 0.05;
-                    s.ShowLastLabel = true;
-                }));
-                settings.AddYAxis((YAxisSettings)(s =>
-                {
-                    s.Title = new YAxisTitle
-                    {
-                        Text = "Temperature"
-                    };
-                    s.Labels = new YAxisLabels
-                    {
-                        Formatter = @"function() {
+        };
+        s.MaxPadding = 0.05;
+        s.ShowLastLabel = true;
+    });
+    settings.AddYAxis(s =>
+    {
+        s.Title = new YAxisTitle
+        {
+            Text = "Temperature"
+        };
+        s.Labels = new YAxisLabels
+        {
+            Formatter = @"function() {
                     return this.value + '°';
                 }"
-                    };
-                    s.LineWidth = 2;
-                }));
-                settings.SetLegend(s => { s.Enabled = false; });
-                settings.SetTooltip(s =>
-                {
-                    s.HeaderFormat = "<b>{series.name}</b><br/>";
-                    s.PointFormat = "{point.x} km: {point.y}°C";
-                });
-                settings.SetPlotOptions(s =>
-                {
-                    s.Spline = new PlotOptionsSpline
-                    {
-                        Marker = new PlotOptionsSplineMarker
-                        {
-                            Enabled = false
-                        }
-                    };
-                });
-                settings.AddSeries((Highcharts4Net.Library.SerieSplineSettings)(s =>
-                {
-                    s.Name = "Temperature";
-                    s.Data = new Data(new []
-                    {
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[] { 0, 15},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[] { 10, -50},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[] {20, -56.5},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[] {30, -46.5},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[] {40, -22.1},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[] {50, -2.5},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[] {60, -27.7},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[] {70, -55.7},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[] {80, -76.5}
+        };
+        s.LineWidth = 2;
+    });
+    settings.SetLegend(s => { s.Enabled = false; });
+    settings.SetTooltip(s =>
+    {
+        s.HeaderFormat = "<b>{series.name}</b><br/>";
+        s.PointFormat = "{point.x} km: {point.y}°C";
+    });
+    settings.SetPlotOptions(s =>
+    {
+        s.Spline = new PlotOptionsSpline
+        {
+            Marker = new PlotOptionsSplineMarker
+            {
+                Enabled = false
+            }
+        };
+    });
+    settings.AddSeries(s =>
+    {
+        s.Name = "Temperature";
+        s.Data = new Data(new []
+        {
+            new HighchartsDataPoint?[] { 0, 15},
+            new HighchartsDataPoint?[] { 10, -50},
+            new HighchartsDataPoint?[] {20, -56.5},
+            new HighchartsDataPoint?[] {30, -46.5},
+            new HighchartsDataPoint?[] {40, -22.1},
+            new HighchartsDataPoint?[] {50, -2.5},
+            new HighchartsDataPoint?[] {60, -27.7},
+            new HighchartsDataPoint?[] {70, -55.7},
+            new HighchartsDataPoint?[] {80, -76.5}
         });
-                }));
-            })).Render()
+    });
+}).Render()
 
 @section source_code
 {

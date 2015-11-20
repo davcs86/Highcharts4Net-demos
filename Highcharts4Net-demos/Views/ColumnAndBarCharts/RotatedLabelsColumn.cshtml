@@ -1,0 +1,178 @@
+﻿@using Highcharts4Net
+@using Highcharts4Net.Library.Enums
+@using Highcharts4Net.Library.Helpers
+@using Highcharts4Net.Library.Options
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Column and bar charts » Column with rotated labels";
+}
+
+@Html.Highcharts4Net().ColumnChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "World's largest cities per 2014"; });
+
+    settings.SetSubtitle(s => { s.Text = "Source: <a href=\"http://en.wikipedia.org/wiki/List_of_cities_proper_by_population\">Wikipedia</a>"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Type = AxisTypes.Category;
+        s.Labels = new XAxisLabels
+        {
+            Rotation = -45,
+            Style = new CSSObject
+            {
+                FontSize = "13px",
+                FontFamily = "Verdana, sans-serif"
+            }
+        };
+    });
+
+    settings.AddYAxis(s =>
+    {
+        s.Min = 0;
+        s.Title = new YAxisTitle
+        {
+            Text = "Population (millions)"
+        };
+    });
+
+    settings.SetLegend(s =>
+    {
+        s.Enabled = true;
+    });
+
+    settings.SetTooltip(s =>
+    {
+        s.PointFormat= "Population in 2008: <b>{point.y:.1f} millions</b>";
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Population";
+        s.Data = new Data(new[]
+        {
+                new HighchartsDataPoint?[] { "Shanghai", 23.7 },
+                new HighchartsDataPoint?[] { "Lagos", 16.1 },
+                new HighchartsDataPoint?[] { "Instanbul", 14.2 },
+                new HighchartsDataPoint?[] { "Karachi", 14.0 },
+                new HighchartsDataPoint?[] { "Mumbai", 12.5 },
+                new HighchartsDataPoint?[] { "Moscow", 12.1 },
+                new HighchartsDataPoint?[] { "São Paulo", 11.8 },
+                new HighchartsDataPoint?[] { "Beijing", 11.7 },
+                new HighchartsDataPoint?[] { "Guangzhou", 11.1 },
+                new HighchartsDataPoint?[] { "Delhi", 11.1 },
+                new HighchartsDataPoint?[] { "Shenzhen", 10.5 },
+                new HighchartsDataPoint?[] { "Seoul", 10.4 },
+                new HighchartsDataPoint?[] { "Jakarta", 10.0 },
+                new HighchartsDataPoint?[] { "Kinshasa", 9.3 },
+                new HighchartsDataPoint?[] { "Tianjin", 9.3 },
+                new HighchartsDataPoint?[] { "Tokyo", 9.0 },
+                new HighchartsDataPoint?[] { "Cairo", 8.9 },
+                new HighchartsDataPoint?[] { "Dhaka", 8.9 },
+                new HighchartsDataPoint?[] { "Mexico City", 8.9 },
+                new HighchartsDataPoint?[] { "Lima", 8.9 }
+            });
+
+        s.DataLabels = new PlotOptionsColumnDataLabels
+        {
+            Enabled = true,
+            Rotation = -90,
+            Color = new ColorOrGradient("#FFFFFF"),
+            Align = HorizontalAligns.Right,
+            Format = "{point.y:.1f}", // one decimal
+            Y = 10, // 10 pixels down from the top
+            Style = new CSSObject
+            {
+                FontSize = "13px",
+                FontFamily = "Verdana, sans-serif"
+            }
+        };
+    });
+
+}).Render()
+
+@section source_code{
+@@Html.Highcharts4Net().ColumnChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "World's largest cities per 2014"; });
+
+    settings.SetSubtitle(s => { s.Text = "Source: &lt;a href=\"http://en.wikipedia.org/wiki/List_of_cities_proper_by_population\">Wikipedia&lt;/a>"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Type = AxisTypes.Category;
+        s.Labels = new XAxisLabels
+        {
+            Rotation = -45,
+            Style = new CSSObject
+            {
+                FontSize = "13px",
+                FontFamily = "Verdana, sans-serif"
+            }
+        };
+    });
+
+    settings.AddYAxis(s =>
+    {
+        s.Min = 0;
+        s.Title = new YAxisTitle
+        {
+            Text = "Population (millions)"
+        };
+    });
+
+    settings.SetLegend(s =>
+    {
+        s.Enabled = true;
+    });
+
+    settings.SetTooltip(s =>
+    {
+        s.PointFormat= "Population in 2008: &lt;b>{point.y:.1f} millions&lt;/b>";
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Population";
+        s.Data = new Data(new HighchartsDataPoint?[][]
+            {
+                new HighchartsDataPoint?[] { "Shanghai", 23.7 },
+                new HighchartsDataPoint?[] { "Lagos", 16.1 },
+                new HighchartsDataPoint?[] { "Instanbul", 14.2 },
+                new HighchartsDataPoint?[] { "Karachi", 14.0 },
+                new HighchartsDataPoint?[] { "Mumbai", 12.5 },
+                new HighchartsDataPoint?[] { "Moscow", 12.1 },
+                new HighchartsDataPoint?[] { "São Paulo", 11.8 },
+                new HighchartsDataPoint?[] { "Beijing", 11.7 },
+                new HighchartsDataPoint?[] { "Guangzhou", 11.1 },
+                new HighchartsDataPoint?[] { "Delhi", 11.1 },
+                new HighchartsDataPoint?[] { "Shenzhen", 10.5 },
+                new HighchartsDataPoint?[] { "Seoul", 10.4 },
+                new HighchartsDataPoint?[] { "Jakarta", 10.0 },
+                new HighchartsDataPoint?[] { "Kinshasa", 9.3 },
+                new HighchartsDataPoint?[] { "Tianjin", 9.3 },
+                new HighchartsDataPoint?[] { "Tokyo", 9.0 },
+                new HighchartsDataPoint?[] { "Cairo", 8.9 },
+                new HighchartsDataPoint?[] { "Dhaka", 8.9 },
+                new HighchartsDataPoint?[] { "Mexico City", 8.9 },
+                new HighchartsDataPoint?[] { "Lima", 8.9 }
+            });
+
+        s.DataLabels = new PlotOptionsColumnDataLabels
+        {
+            Enabled = true,
+            Rotation = -90,
+            Color = new ColorOrGradient("#FFFFFF"),
+            Align = HorizontalAligns.Right,
+            Format = "{point.y:.1f}", // one decimal
+            Y = 10, // 10 pixels down from the top
+            Style = new CSSObject
+            {
+                FontSize = "13px",
+                FontFamily = "Verdana, sans-serif"
+            }
+        };
+    });
+
+}).Render()
+}

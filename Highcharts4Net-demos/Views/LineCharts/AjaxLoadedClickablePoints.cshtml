@@ -1,9 +1,7 @@
-﻿@using System.Drawing
-@using Highcharts4Net
+﻿@using Highcharts4Net
 @using Highcharts4Net.Library.Enums
 @using Highcharts4Net.Library.Helpers
 @using Highcharts4Net.Library.Options
-
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Line charts » Ajax loaded data, clickable points";
@@ -80,10 +78,10 @@
 
     settings.SetPlotOptions(s =>
     {
-        s.Series = new PlotOptionsSeries
+        s.Line = new PlotOptionsLine
         {
             Cursor = Cursors.Pointer,
-            Events = new PlotOptionsSeriesEvents
+            Events = new PlotOptionsLineEvents
             {
                 Click = @"function(e) {
                             if (typeof(hs)!='undefined'){
@@ -102,7 +100,7 @@
                             }
                         }"
             },
-            Marker = new PlotOptionsSeriesMarker
+            Marker = new PlotOptionsLineMarker
             {
                 LineWidth = 1
             }
@@ -204,10 +202,10 @@
 
     settings.SetPlotOptions(s =>
     {
-        s.Series = new PlotOptionsSeries
+        s.Series = new PlotOptionsLine
         {
             Cursor = Cursors.Pointer,
-            Events = new PlotOptionsSeriesEvents
+            Events = new PlotOptionsLineEvents
             {
                 Click = @@"function(e) {
                             if (typeof(hs)!='undefined'){
@@ -226,7 +224,7 @@
                             }
                         }"
             },
-            Marker = new PointMarker
+            Marker = new PlotOptionsLineMarker
             {
                 LineWidth = 1
             }

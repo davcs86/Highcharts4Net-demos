@@ -1,0 +1,154 @@
+﻿@using Highcharts4Net
+@using Highcharts4Net.Library.Enums
+@using Highcharts4Net.Library.Helpers
+@using Highcharts4Net.Library.Options
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Column and bar charts » Stacked and grouped column";
+}
+
+@Html.Highcharts4Net().ColumnChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "Total fruit consumtion, grouped by gender"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[] {
+            "Apples", "Oranges", "Pears", "Grapes", "Bananas"
+        };
+    });
+
+    settings.AddYAxis(s =>
+    {
+        s.AllowDecimals = false;
+        s.Min = 0;
+        s.Title = new YAxisTitle
+        {
+            Text = "Number of fruits"
+        };
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Column = new PlotOptionsColumn
+        {
+            Stacking = Stackings.Normal
+        };
+    });
+
+    settings.SetTooltip(s =>
+    {
+        s.Formatter = @"function () {
+                return '<b>' + this.x + '</b><br/>' +
+                    this.series.name + ': ' + this.y + '<br/>' +
+                    'Total: ' + this.point.stackTotal;
+            }";
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "John";
+        s.Data = new Data(new HighchartsDataPoint?[]
+            { 5, 3, 4, 7, 2 });
+        s.Stack = "male";
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Joe";
+        s.Data = new Data(new HighchartsDataPoint?[]
+            { 3, 4, 4, 2, 5 });
+        s.Stack = "male";
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new HighchartsDataPoint?[]
+            { 2, 5, 6, 2, 1 });
+        s.Stack = "female";
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Janet";
+        s.Data = new Data(new HighchartsDataPoint?[]
+            { 3, 0, 4, 4, 3 });
+        s.Stack = "female";
+    });
+
+}).Render()
+
+@section source_code{
+@@Html.Highcharts4Net().ColumnChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "Total fruit consumtion, grouped by gender"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[] {
+            "Apples", "Oranges", "Pears", "Grapes", "Bananas"
+        };
+    });
+
+    settings.AddYAxis(s =>
+    {
+        s.AllowDecimals = false;
+        s.Min = 0;
+        s.Title = new YAxisTitle
+        {
+            Text = "Number of fruits"
+        };
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Column = new PlotOptionsColumn
+        {
+            Stacking = Stackings.Normal,
+        };
+    });
+
+    settings.SetTooltip(s =>
+    {
+        s.Formatter = @@"function () {
+                return '&lt;b>' + this.x + '&lt;/b>&lt;br />' +
+                    this.series.name + ': ' + this.y + '&lt;br />' +
+                    'Total: ' + this.point.stackTotal;
+            }";
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "John";
+        s.Data = new Data(new HighchartsDataPoint?[]
+            { 5, 3, 4, 7, 2 });
+        s.Stack = "male";
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Joe";
+        s.Data = new Data(new HighchartsDataPoint?[]
+            { 3, 4, 4, 2, 5 });
+        s.Stack = "male";
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new HighchartsDataPoint?[]
+            { 2, 5, 6, 2, 1 });
+        s.Stack = "female";
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Janet";
+        s.Data = new Data(new HighchartsDataPoint?[]
+            { 3, 0, 4, 4, 3 });
+        s.Stack = "female";
+    });
+
+}).Render()
+}

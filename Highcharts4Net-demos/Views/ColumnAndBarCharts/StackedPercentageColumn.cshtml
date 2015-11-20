@@ -1,0 +1,124 @@
+﻿@using Highcharts4Net
+@using Highcharts4Net.Library.Enums
+@using Highcharts4Net.Library.Helpers
+@using Highcharts4Net.Library.Options
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Column and bar charts » Stacked percentage column";
+}
+
+@Html.Highcharts4Net().ColumnChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "Stacked column chart"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[] {
+            "Apples", "Oranges", "Pears", "Grapes", "Bananas"
+        };
+    });
+
+    settings.AddYAxis(s =>
+    {
+        s.Min = 0;
+        s.Title = new YAxisTitle
+        {
+            Text = "Total fruit consumption"
+        };
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Column = new PlotOptionsColumn
+        {
+            Stacking = Stackings.Percent
+        };
+    });
+
+    settings.SetTooltip(s =>
+    {
+        s.PointFormat="<span style=\"color:{series.color}\">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>";
+        s.Shared = true;
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "John";
+        s.Data = new Data(new HighchartsDataPoint?[]
+            { 5, 3, 4, 7, 2 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new HighchartsDataPoint?[]
+            { 2, 2, 3, 2, 1 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Janet";
+        s.Data = new Data(new HighchartsDataPoint?[]
+            { 3, 4, 4, 2, 5 });
+    });
+
+}).Render()
+
+@section source_code{
+@@Html.Highcharts4Net().ColumnChart(settings =>
+{
+    settings.SetTitle(s => { s.Text = "Stacked column chart"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Categories = new[] {
+            "Apples", "Oranges", "Pears", "Grapes", "Bananas"
+        };
+    });
+
+    settings.AddYAxis(s =>
+    {
+        s.Min = 0;
+        s.Title = new YAxisTitle
+        {
+            Text = "Total fruit consumption"
+        };
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Column = new PlotOptionsColumn
+        {
+            Stacking = Stackings.Percent,
+        };
+    });
+
+    settings.SetTooltip(s =>
+    {
+        s.PointFormat="&lt;span style=\"color:{series.color}\">{series.name}&lt;/span>: &lt;b>{point.y}&lt;/b> ({point.percentage:.0f}%)&lt;br />";
+        s.Shared = true;
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "John";
+        s.Data = new Data(new HighchartsDataPoint?[]
+            { 5, 3, 4, 7, 2 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Jane";
+        s.Data = new Data(new HighchartsDataPoint?[]
+            { 2, 2, 3, 2, 1 });
+    });
+
+    settings.AddSeries(s =>
+    {
+        s.Name = "Janet";
+        s.Data = new Data(new HighchartsDataPoint?[]
+            { 3, 4, 4, 2, 5 });
+    });
+
+}).Render()
+}

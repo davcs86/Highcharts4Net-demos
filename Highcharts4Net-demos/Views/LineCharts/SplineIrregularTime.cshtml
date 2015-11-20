@@ -2,134 +2,137 @@
 @using Highcharts4Net.Library.Enums
 @using Highcharts4Net.Library.Helpers
 @using Highcharts4Net.Library.Options
-
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Line charts » Time data with irregular intervals";
 }
 
-@Html.Highcharts4Net().SplineChart((Action<Highcharts4Net.Library.SplineChartSettings>)(settings =>
+
+@Html.Highcharts4Net().SplineChart(settings =>
+{
+    settings.Name = "SplineIrregularTime";
+
+    settings.SetTitle(s => { s.Text = "Snow depth at Vikjafjellet, Norway"; });
+
+    settings.SetSubtitle(s => { s.Text = "Irregular time data in Highcharts JS"; });
+
+    settings.AddXAxis(s =>
+    {
+        s.Type = AxisTypes.Datetime;
+        s.DateTimeLabelFormats = new DateTimeLabel
+        {
+            Month = "%e. %b",
+            Year = "%b"
+        };
+        s.Title = new XAxisTitle
+        {
+            Text = "Date"
+        };
+    });
+
+    settings.AddYAxis(s =>
+    {
+        s.Title = new YAxisTitle
+        {
+            Text = "Snow depth (m)"
+        };
+        s.Min = 0;
+    });
+
+    settings.SetTooltip(s => {
+                                 s.HeaderFormat = "<b>{series.name}</b><br>";
+                                 s.PointFormat = "{point.x:%e. %b}: {point.y:.2f} m";
+    });
+
+    settings.SetPlotOptions(s =>
+    {
+        s.Spline = new PlotOptionsSpline
+        {
+            Marker = new PlotOptionsSplineMarker
             {
-                settings.Name = "SplineIrregularTime";
+                Enabled = true
+            }
+        };
+    });
 
-                settings.SetTitle(s => { s.Text = "Snow depth at Vikjafjellet, Norway"; });
-
-                settings.SetSubtitle(s => { s.Text = "Irregular time data in Highcharts JS"; });
-
-                settings.AddXAxis(s =>
-                {
-                    s.Type = AxisTypes.Datetime;
-                    s.DateTimeLabelFormats = new DateTimeLabel
-                    {
-                        Month = "%e. %b",
-                        Year = "%b"
-                    };
-                    s.Title = new XAxisTitle
-                    {
-                        Text = "Date"
-                    };
-                });
-
-                settings.AddYAxis((YAxisSettings)(s =>
-                {
-                    s.Title = new YAxisTitle
-                    {
-                        Text = "Snow depth (m)"
-                    };
-                    s.Min = 0;
-                }));
-
-                settings.SetTooltip(s => {
-                    s.HeaderFormat = "<b>{series.name}</b><br>";
-                    s.PointFormat = "{point.x:%e. %b}: {point.y:.2f} m";
-                });
-
-                settings.SetPlotOptions(s =>
-                {
-                    s.Spline = new PlotOptionsSpline
-                    {
-                        Marker = new PlotOptionsSplineMarker
-                        {
-                            Enabled = true
-                        }
-                    };
-                });
-
-                settings.AddSeries((Highcharts4Net.Library.SerieSplineSettings)(s =>
-                {
-                    s.Name = "Winter 2012-2013";
-                    s.Data = new Data(new Highcharts4Net.Library.Helpers.NumberOrDateTime?[][] {
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1970,10,21,0,0,0,1),0 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1970,11,4,0,0,0,1),0.28 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1970,11,9,0,0,0,1),0.25 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1970,11,27,0,0,0,1),0.2 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1970,12,2,0,0,0,1),0.28 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1970,12,26,0,0,0,1),0.28 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1970,12,29,0,0,0,1),0.47 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971,1,11,0,0,0,1),0.79 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971,1,26,0,0,0,1),0.72 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971,2,3,0,0,0,1),1.02 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971,2,11,0,0,0,1),1.12 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971,2,25,0,0,0,1),1.2 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971,3,11,0,0,0,1),1.18 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971,4,11,0,0,0,1),1.19 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971,5,1,0,0,0,1),1.85 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971,5,5,0,0,0,1),2.22 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971,5,19,0,0,0,1),1.15 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971,6,3,0,0,0,1),0 }
+    settings.AddSeries(s =>
+    {
+        s.Name = "Winter 2012-2013";
+        s.Data = new Data(new[]
+        {
+            new HighchartsDataPoint?[]{new DateTime(1970,10,21,0,0,0,1),0 },
+            new HighchartsDataPoint?[]{new DateTime(1970,11,4,0,0,0,1),0.28 },
+            new HighchartsDataPoint?[]{new DateTime(1970,11,9,0,0,0,1),0.25 },
+            new HighchartsDataPoint?[]{new DateTime(1970,11,27,0,0,0,1),0.2 },
+            new HighchartsDataPoint?[]{new DateTime(1970,12,2,0,0,0,1),0.28 },
+            new HighchartsDataPoint?[]{new DateTime(1970,12,26,0,0,0,1),0.28 },
+            new HighchartsDataPoint?[]{new DateTime(1970,12,29,0,0,0,1),0.47 },
+            new HighchartsDataPoint?[]{new DateTime(1971,1,11,0,0,0,1),0.79 },
+            new HighchartsDataPoint?[]{new DateTime(1971,1,26,0,0,0,1),0.72 },
+            new HighchartsDataPoint?[]{new DateTime(1971,2,3,0,0,0,1),1.02 },
+            new HighchartsDataPoint?[]{new DateTime(1971,2,11,0,0,0,1),1.12 },
+            new HighchartsDataPoint?[]{new DateTime(1971,2,25,0,0,0,1),1.2 },
+            new HighchartsDataPoint?[]{new DateTime(1971,3,11,0,0,0,1),1.18 },
+            new HighchartsDataPoint?[]{new DateTime(1971,4,11,0,0,0,1),1.19 },
+            new HighchartsDataPoint?[]{new DateTime(1971,5,1,0,0,0,1),1.85 },
+            new HighchartsDataPoint?[]{new DateTime(1971,5,5,0,0,0,1),2.22 },
+            new HighchartsDataPoint?[]{new DateTime(1971,5,19,0,0,0,1),1.15 },
+            new HighchartsDataPoint?[]{new DateTime(1971,6,3,0,0,0,1),0 }
         });
-                }));
+    });
 
-                settings.AddSeries((Highcharts4Net.Library.SerieSplineSettings)(s =>
-                {
-                    s.Name = "Winter 2013-2014";
-                    s.Data = new Data(new Highcharts4Net.Library.Helpers.NumberOrDateTime?[][] {
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1970, 10, 29, 0,0,0,1),0 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1970, 11, 9, 0,0,0,1), 0.4 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1970, 12, 1, 0,0,0,1), 0.25 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 1, 1, 0,0,0,1), 1.66 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 1, 10, 0,0,0,1), 1.8 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 2, 19, 0,0,0,1), 1.76 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 3, 25, 0,0,0,1), 2.62 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 4, 19, 0,0,0,1), 2.41 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 4, 30, 0,0,0,1), 2.05 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 5, 14, 0,0,0,1), 1.7 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971,5,24,0,0,0,1), 1.1 },
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971,6,10,0,0,0,1), 0 }
+    settings.AddSeries(s =>
+    {
+        s.Name = "Winter 2013-2014";
+        s.Data = new Data(new[]
+        {
+            new HighchartsDataPoint?[]{new DateTime(1970, 10, 29, 0,0,0,1),0 },
+            new HighchartsDataPoint?[]{new DateTime(1970, 11, 9, 0,0,0,1), 0.4 },
+            new HighchartsDataPoint?[]{new DateTime(1970, 12, 1, 0,0,0,1), 0.25 },
+            new HighchartsDataPoint?[]{new DateTime(1971, 1, 1, 0,0,0,1), 1.66 },
+            new HighchartsDataPoint?[]{new DateTime(1971, 1, 10, 0,0,0,1), 1.8 },
+            new HighchartsDataPoint?[]{new DateTime(1971, 2, 19, 0,0,0,1), 1.76 },
+            new HighchartsDataPoint?[]{new DateTime(1971, 3, 25, 0,0,0,1), 2.62 },
+            new HighchartsDataPoint?[]{new DateTime(1971, 4, 19, 0,0,0,1), 2.41 },
+            new HighchartsDataPoint?[]{new DateTime(1971, 4, 30, 0,0,0,1), 2.05 },
+            new HighchartsDataPoint?[]{new DateTime(1971, 5, 14, 0,0,0,1), 1.7 },
+            new HighchartsDataPoint?[]{new DateTime(1971,5,24,0,0,0,1), 1.1 },
+            new HighchartsDataPoint?[]{new DateTime(1971,6,10,0,0,0,1), 0 }
         });
-                }));
+    });
 
-                settings.AddSeries((Highcharts4Net.Library.SerieSplineSettings)(s =>
-                {
-                    s.Name = "Winter 2014-2015";
-                    s.Data = new Data(new Highcharts4Net.Library.Helpers.NumberOrDateTime?[][] {
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1970, 11, 25, 0,0,0,1), 0},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1970, 12, 6, 0,0,0,1), 0.25},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1970, 12, 20, 0,0,0,1), 1.41},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1970, 12, 25, 0,0,0,1), 1.64},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 1, 4, 0,0,0,1), 1.6},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 1, 17, 0,0,0,1), 2.55},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 1, 24, 0,0,0,1), 2.62},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 2, 4, 0,0,0,1), 2.5},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 2, 14, 0,0,0,1), 2.42},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 3, 6, 0,0,0,1), 2.74},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 3, 14, 0,0,0,1), 2.62},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 3, 24, 0,0,0,1), 2.6},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 4, 2, 0,0,0,1), 2.81},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 4, 12, 0,0,0,1), 2.63},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 4, 28, 0,0,0,1), 2.77},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 5, 5, 0,0,0,1), 2.68},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 5, 10, 0,0,0,1), 2.56},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 5, 15, 0,0,0,1), 2.39},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 5, 20, 0,0,0,1), 2.3},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 6, 5, 0,0,0,1), 2},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 6, 10, 0,0,0,1), 1.85},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 6, 15, 0,0,0,1), 1.49},
-            new Highcharts4Net.Library.Helpers.NumberOrDateTime?[]{new DateTime(1971, 6, 23, 0,0,0,1), 1.08}
+    settings.AddSeries(s =>
+    {
+        s.Name = "Winter 2014-2015";
+        s.Data = new Data(new[]
+        {
+            new HighchartsDataPoint?[]{new DateTime(1970, 11, 25, 0,0,0,1), 0},
+            new HighchartsDataPoint?[]{new DateTime(1970, 12, 6, 0,0,0,1), 0.25},
+            new HighchartsDataPoint?[]{new DateTime(1970, 12, 20, 0,0,0,1), 1.41},
+            new HighchartsDataPoint?[]{new DateTime(1970, 12, 25, 0,0,0,1), 1.64},
+            new HighchartsDataPoint?[]{new DateTime(1971, 1, 4, 0,0,0,1), 1.6},
+            new HighchartsDataPoint?[]{new DateTime(1971, 1, 17, 0,0,0,1), 2.55},
+            new HighchartsDataPoint?[]{new DateTime(1971, 1, 24, 0,0,0,1), 2.62},
+            new HighchartsDataPoint?[]{new DateTime(1971, 2, 4, 0,0,0,1), 2.5},
+            new HighchartsDataPoint?[]{new DateTime(1971, 2, 14, 0,0,0,1), 2.42},
+            new HighchartsDataPoint?[]{new DateTime(1971, 3, 6, 0,0,0,1), 2.74},
+            new HighchartsDataPoint?[]{new DateTime(1971, 3, 14, 0,0,0,1), 2.62},
+            new HighchartsDataPoint?[]{new DateTime(1971, 3, 24, 0,0,0,1), 2.6},
+            new HighchartsDataPoint?[]{new DateTime(1971, 4, 2, 0,0,0,1), 2.81},
+            new HighchartsDataPoint?[]{new DateTime(1971, 4, 12, 0,0,0,1), 2.63},
+            new HighchartsDataPoint?[]{new DateTime(1971, 4, 28, 0,0,0,1), 2.77},
+            new HighchartsDataPoint?[]{new DateTime(1971, 5, 5, 0,0,0,1), 2.68},
+            new HighchartsDataPoint?[]{new DateTime(1971, 5, 10, 0,0,0,1), 2.56},
+            new HighchartsDataPoint?[]{new DateTime(1971, 5, 15, 0,0,0,1), 2.39},
+            new HighchartsDataPoint?[]{new DateTime(1971, 5, 20, 0,0,0,1), 2.3},
+            new HighchartsDataPoint?[]{new DateTime(1971, 6, 5, 0,0,0,1), 2},
+            new HighchartsDataPoint?[]{new DateTime(1971, 6, 10, 0,0,0,1), 1.85},
+            new HighchartsDataPoint?[]{new DateTime(1971, 6, 15, 0,0,0,1), 1.49},
+            new HighchartsDataPoint?[]{new DateTime(1971, 6, 23, 0,0,0,1), 1.08}
         });
-                }));
+    });
 
-            })).Render()
+}).Render()
 
 
 @section source_code{
@@ -275,12 +278,12 @@
     settings.AddSeries(s =>
     {
         s.Name = "Hestavollane";
-        s.Data = new Data(new NumberOrDateTime?[] {0.2, 0.8, 0.8, 0.8, 1, 1.3, 1.5, 2.9, 1.9, 2.6, 1.6, 3, 4, 3.6, 4.5, 4.2, 4.5, 4.5, 4, 3.1, 2.7, 4, 2.7, 2.3, 2.3, 4.1, 7.7, 7.1, 5.6, 6.1, 5.8, 8.6, 7.2, 9, 10.9, 11.5, 11.6, 11.1, 12, 12.3, 10.7, 9.4, 9.8, 9.6, 9.8, 9.5, 8.5, 7.4, 7.6});
+        s.Data = new Data(new HighchartsDataPoint?[] {0.2, 0.8, 0.8, 0.8, 1, 1.3, 1.5, 2.9, 1.9, 2.6, 1.6, 3, 4, 3.6, 4.5, 4.2, 4.5, 4.5, 4, 3.1, 2.7, 4, 2.7, 2.3, 2.3, 4.1, 7.7, 7.1, 5.6, 6.1, 5.8, 8.6, 7.2, 9, 10.9, 11.5, 11.6, 11.1, 12, 12.3, 10.7, 9.4, 9.8, 9.6, 9.8, 9.5, 8.5, 7.4, 7.6});
     });
     settings.AddSeries(s =>
     {
         s.Name = "Vik";
-        s.Data = new Data(new NumberOrDateTime?[] {0, 0, 0.6, 0.9, 0.8, 0.2, 0, 0, 0, 0.1, 0.6, 0.7, 0.8, 0.6, 0.2, 0, 0.1, 0.3, 0.3, 0, 0.1, 0, 0, 0, 0.2, 0.1, 0, 0.3, 0, 0.1, 0.2, 0.1, 0.3, 0.3, 0, 3.1, 3.1, 2.5, 1.5, 1.9, 2.1, 1, 2.3, 1.9, 1.2, 0.7, 1.3, 0.4, 0.3});
+        s.Data = new Data(new HighchartsDataPoint?[] {0, 0, 0.6, 0.9, 0.8, 0.2, 0, 0, 0, 0.1, 0.6, 0.7, 0.8, 0.6, 0.2, 0, 0.1, 0.3, 0.3, 0, 0.1, 0, 0, 0, 0.2, 0.1, 0, 0.3, 0, 0.1, 0.2, 0.1, 0.3, 0.3, 0, 3.1, 3.1, 2.5, 1.5, 1.9, 2.1, 1, 2.3, 1.9, 1.2, 0.7, 1.3, 0.4, 0.3});
     });
     settings.SetNavigation(s => { s.MenuItemStyle = "{fontSize: '10px'}"; });
 }).Render()

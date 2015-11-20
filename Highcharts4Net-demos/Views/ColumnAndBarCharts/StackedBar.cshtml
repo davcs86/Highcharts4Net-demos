@@ -36,23 +36,23 @@
     {
         s.Reversed = true;
     });
-    
+
     settings.AddSeries(s =>
     {
         s.Name = "John";
-        s.Data = new Data(new NumberOrDateTime?[] { 5, 3, 4, 7, 2 });
+        s.Data = new Data(new HighchartsDataPoint?[] { 5, 3, 4, 7, 2 });
     });
 
     settings.AddSeries(s =>
     {
         s.Name = "Jane";
-        s.Data = new Data(new NumberOrDateTime?[] { 2, 2, 3, 2, 1 });
+        s.Data = new Data(new HighchartsDataPoint?[] { 2, 2, 3, 2, 1 });
     });
 
     settings.AddSeries(s =>
     {
         s.Name = "Joe";
-        s.Data = new Data(new NumberOrDateTime?[] { 3, 4, 4, 2, 5 });
+        s.Data = new Data(new HighchartsDataPoint?[] { 3, 4, 4, 2, 5 });
     });
 
 }).Render()
@@ -91,19 +91,19 @@
     settings.AddSeries(s =>
     {
         s.Name = "John";
-        s.Data = new Data(new NumberOrDateTime?[] { 5, 3, 4, 7, 2 });
+        s.Data = new Data(new HighchartsDataPoint?[] { 5, 3, 4, 7, 2 });
     });
 
     settings.AddSeries(s =>
     {
         s.Name = "Jane";
-        s.Data = new Data(new NumberOrDateTime?[] { 2, 2, 3, 2, 1 });
+        s.Data = new Data(new HighchartsDataPoint?[] { 2, 2, 3, 2, 1 });
     });
 
     settings.AddSeries(s =>
     {
         s.Name = "Joe";
-        s.Data = new Data(new NumberOrDateTime?[] { 3, 4, 4, 2, 5 });
+        s.Data = new Data(new HighchartsDataPoint?[] { 3, 4, 4, 2, 5 });
     });
 
 }).Render()

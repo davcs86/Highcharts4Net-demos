@@ -113,13 +113,29 @@
                                             <li id="menu-item-columnandbarcharts_stackedcolumn" class="menu-item">
                                                 <a href="@Url.Action("StackedColumn", "ColumnAndBarCharts")">Stacked column</a>
                                             </li>
+                                            <li id="menu-item-columnandbarcharts_stackedgroupedcolumn" class="menu-item">
+                                                <a href="@Url.Action("StackedGroupedColumn", "ColumnAndBarCharts")">Stacked and grouped column</a>
+                                            </li>
+                                            <li id="menu-item-columnandbarcharts_stackedpercentagecolumn" class="menu-item">
+                                                <a href="@Url.Action("StackedPercentageColumn", "ColumnAndBarCharts")">Stacked percentage column</a>
+                                            </li>
+                                            <li id="menu-item-columnandbarcharts_rotatedlabelscolumn" class="menu-item">
+                                                <a href="@Url.Action("RotatedLabelsColumn", "ColumnAndBarCharts")">Column with rotated labels</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
                             </nav><aside class="header-widgets" itemscope itemtype="http://schema.org/WPSideBar">
                                 <div id="text-1" class="widget widget_text">
                                     <h4 class="widget-title">Repository</h4>
-                                    <div class="textwidget"><a href="https://github.com/davcs86/Highcharts4Net" target="_blank">Link</a></div>
+                                    <div class="textwidget text-center">
+                                        <!-- Place this tag where you want the button to render. -->
+                                        <a class="github-button" href="https://github.com/davcs86/Higcharts4Net" data-style="mega" data-count-href="/davcs86/Higcharts4Net/stargazers" data-count-api="/repos/davcs86/Higcharts4Net#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star davcs86/Higcharts4Net on GitHub">Star</a><br/>
+                                        <!-- Place this tag where you want the button to render. -->
+                                        <a class="github-button" href="https://github.com/davcs86/Higcharts4Net/archive/master.zip" data-style="mega" aria-label="Download davcs86/Higcharts4Net on GitHub">Download library</a><br/>
+                                        <!-- Place this tag where you want the button to render. -->
+                                        <a class="github-button" href="https://github.com/davcs86/Higcharts4Net-demos/archive/master.zip" data-style="mega" aria-label="Download davcs86/Higcharts4Net-demos on GitHub">Download demos</a>
+                                    </div>
                                 </div>
                             </aside>
                         </div>
@@ -191,15 +207,17 @@
         WebFontConfig = {
             google: { families: ['Roboto:400,300,700,500,700italic,400italic,300italic,500italic:latin,latin-ext'] }
         };
-        (function () {
+        (function() {
             var wf = document.createElement('script');
             wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-              '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+                '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
             wf.type = 'text/javascript';
             wf.async = 'true';
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(wf, s);
         })();
     </script>
+    <!-- Place this tag right after the last button or just before your close body tag. -->
+    <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>

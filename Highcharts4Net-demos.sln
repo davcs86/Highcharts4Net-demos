@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Highcharts4Net_demos", "Highcharts4Net-demos\Highcharts4Net_demos.csproj", "{6665FD07-96F8-4006-A443-5669681B20A6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{54EF87AA-E5C6-4CCA-AB1D-116A78346B30} = {54EF87AA-E5C6-4CCA-AB1D-116A78346B30}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Highcharts4Net", "Highcharts4Net\Highcharts4Net\Highcharts4Net.csproj", "{54EF87AA-E5C6-4CCA-AB1D-116A78346B30}"
 EndProject
