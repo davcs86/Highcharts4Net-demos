@@ -135,7 +135,7 @@
 @section source_code{
 @@Html.Highcharts4Net().LineChart(settings =>
 {
-    settings.SetData(s => { s.getJSONP = "http://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?"; });
+    settings.Name = "AjaxLoadedChart";
 
     settings.SetTitle(s => { s.Text = "Daily visits at www.highcharts.com"; });
 
